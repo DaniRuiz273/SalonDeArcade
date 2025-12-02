@@ -7,14 +7,14 @@ public class MaquinaArcade {
     private int precioPorPartida;
     private boolean estadoMaquina;
     private int contadorPartidasJugadas;
-    private int [] mejoresPuntuaciones;
-    private int [] mejoresJugadores;
+    private final int [] mejoresPuntuaciones;
+    private final int [] mejoresJugadores;
 
     /**
      * Método para poder activa o desactivar la máquina
      * @param opcion Es el número con el que activa o desactiva una máquina
      */
-    public void estadoMaquina (int opcion){
+    public void cambiarEstado (int opcion){
         if (opcion == 0) {
             estadoMaquina = false;
         } else if (opcion == 1){
@@ -25,7 +25,7 @@ public class MaquinaArcade {
     /**
      * Método para consultar el estado de la máquina actual
      */
-    public void estaActiva (){
+    public void imprimirEstado (){
         System.out.println(estadoMaquina);
     }
 
@@ -47,17 +47,26 @@ public class MaquinaArcade {
                 for (int j = mejoresPuntuaciones.length - 1; j > i; j--) { // Desplaza una posición hacia abajo
                     mejoresPuntuaciones[j] = mejoresPuntuaciones[j - 1];
                 }
-                puntuacion = mejoresPuntuaciones[i];
+                mejoresPuntuaciones[i] = puntuacion;
                 top3 = true; // El ranking ya está actualizado con la nueva puntuación
             }
         }
         return puntuacion;
     }
 
+    /**
+     * Constructor con los valores ya introducidos
+     * @param nombreMaquina El nombre de la máquina
+     * @param generoMaquina El género de la máquina
+     * @param precioPorPartida El precio por partida de cada máquina
+     */
     public MaquinaArcade (String nombreMaquina, String generoMaquina, int precioPorPartida){
         this.generoMaquina = generoMaquina;
         this.precioPorPartida = precioPorPartida;
         this.nombreMaquina = nombreMaquina;
+
+        this.mejoresPuntuaciones = new int[size];
+        this.mejoresJugadores = new int[size];
     }
 
 
@@ -89,7 +98,7 @@ public class MaquinaArcade {
         this.precioPorPartida = precioPorPartida;
     }
 
-    public boolean isEstadoMaquina() {
+    public boolean EstadoMaquina() {
         return estadoMaquina;
     }
 
