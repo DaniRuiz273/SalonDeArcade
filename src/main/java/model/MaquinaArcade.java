@@ -23,15 +23,15 @@ public class MaquinaArcade {
     }
 
     /**
-     * Método para consultar el estado de la máquina actual
+     * Método donde se imprime el estado de la máquina
      */
     public void imprimirEstado (){
         System.out.println(estadoMaquina);
     }
 
     /**
-     * Método donde se crean las nuevas partidas
-     * @return Devuelve la puntuación obtenida de la partida jugada
+     * Método donde se genera la puntuación de una partida
+     * @return Devuelve la puntuación de la partida
      */
     public int nuevaPartida (){
         int puntuacion = Utils.generaNumeroAleatorio(0, 9999);
@@ -69,6 +69,10 @@ public class MaquinaArcade {
         this.mejoresJugadores = new int[size];
     }
 
+    /**
+     * Método con el imprimimos por pantalla los atributos de la clase MaquinaArcade
+     * @return Devuelve el texto ya preparado
+     */
     public String toString (){
        String texto =  "\n Nombre de la máquina: " + this.nombreMaquina +
                 "\n Género de la máquina: " + this.generoMaquina +
