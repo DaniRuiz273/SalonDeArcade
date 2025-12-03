@@ -42,11 +42,11 @@ public class MaquinaArcade {
         }
 
         if(puntuacion > mejoresPuntuaciones[0]){ // Comparo si la puntuacion de la partida es mayor que la puntuacion de la posición 0
-            mejoresPuntuaciones[0] = mejoresPuntuaciones[1]; // Paso la puntuacion de la posición 0 a la 1
-            mejoresPuntuaciones[1] = mejoresPuntuaciones[2]; // Paso la puntuacion de la posición 1 a la 2
+            mejoresPuntuaciones[2] = mejoresPuntuaciones[1]; // Paso la puntuacion de la posición 0 a la 1
+            mejoresPuntuaciones[1] = mejoresPuntuaciones[0]; // Paso la puntuacion de la posición 1 a la 2
             mejoresPuntuaciones[0] = puntuacion; // La puntuacion 0 ahora pasa a ser la puntuacion de la partida
         } else if (puntuacion > mejoresPuntuaciones[1]){ // Comparo si la puntuacion de la partida es mayor que la puntuacion de la posición 1
-            mejoresPuntuaciones[1] = mejoresPuntuaciones[2]; // Paso la puntuacion de la posición 1 a la 2
+            mejoresPuntuaciones[2] = mejoresPuntuaciones[1]; // Paso la puntuacion de la posición 1 a la 2
             mejoresPuntuaciones[1] = puntuacion; // La puntuacion 1 ahora pasa a ser la puntuacion de la partida
         } else if (puntuacion > mejoresPuntuaciones[2]) { // Comparo si la puntuacion de la partida es mayor que la puntuacion de la posición 2
             mejoresPuntuaciones[2] = puntuacion; // La puntuacion 2 ahora pasa a ser la puntuacion de la partida
@@ -70,12 +70,16 @@ public class MaquinaArcade {
     }
 
     public String toString (){
-        return "\n Nombre de la máquina: " + this.nombreMaquina +
+       String texto =  "\n Nombre de la máquina: " + this.nombreMaquina +
                 "\n Género de la máquina: " + this.generoMaquina +
                 "\n Precio por partida: " + this.precioPorPartida +
                 "\n Contador de partidas: " + this.contadorPartidasJugadas +
-                "\n Estado de la máquina: " + this.estadoMaquina +
-                "\n Ranking: " + this.mejoresJugadores[size];
+                "\n Estado de la máquina: " + this.estadoMaquina + "\n";
+
+        for (int i = 0; i < mejoresPuntuaciones.length; i++){
+            texto += ( i + 1 ) + "º --> " + mejoresPuntuaciones[i] + "\n";
+        }
+        return texto;
     }
 
 

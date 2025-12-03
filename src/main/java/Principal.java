@@ -14,6 +14,7 @@ public class Principal {
 
         System.out.println(pingball.nuevaPartida());
         System.out.println(pingball.nuevaPartida());
+        System.out.println(pingball.nuevaPartida());
 
         System.out.println(pingball);
 
