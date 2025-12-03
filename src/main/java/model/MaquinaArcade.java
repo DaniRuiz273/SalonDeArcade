@@ -31,11 +31,10 @@ public class MaquinaArcade {
 
     /**
      * Método donde se crean las nuevas partidas
-     * @param puntuacion Es la puntuación que obtienes de manera aleatoria de la partida jugada
      * @return Devuelve la puntuación obtenida de la partida jugada
      */
-    public int nuevaPartida (int puntuacion){
-        puntuacion = Utils.generaNumeroAleatorio(0, 9999);
+    public int nuevaPartida (){
+        int puntuacion = Utils.generaNumeroAleatorio(0, 9999);
         contadorPartidasJugadas++;
         if(contadorPartidasJugadas % 100 == 0){
             estadoMaquina = false;
@@ -67,6 +66,12 @@ public class MaquinaArcade {
 
         this.mejoresPuntuaciones = new int[size];
         this.mejoresJugadores = new int[size];
+    }
+
+    public String toString (){
+        return "\n Nombre de la máquina: " + this.nombreMaquina +
+                "\n Género de la máquina: " + this.generoMaquina +
+                "\n Precio por partida: " + this.precioPorPartida;
     }
 
 
