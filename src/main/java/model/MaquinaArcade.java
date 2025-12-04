@@ -8,7 +8,7 @@ public class MaquinaArcade {
     private boolean estadoMaquina;
     private int contadorPartidasJugadas;
     private final int [] mejoresPuntuaciones;
-    private final int [] mejoresJugadores;
+    private final Jugador [] mejoresJugadores;
 
     /**
      * Método para poder activa o desactivar la máquina
@@ -30,7 +30,7 @@ public class MaquinaArcade {
     }
 
     /**
-     * Método donde se genera la puntuación de una partida
+     * Método donde se genera la puntuación de una partida, comprueba si el numero de la partida no es multiplo de 100 y actualiza el ranking de mejores jugadores con sus respectivos puntos
      * @return Devuelve la puntuación de la partida
      */
     public int nuevaPartida (){
@@ -66,7 +66,7 @@ public class MaquinaArcade {
         this.nombreMaquina = nombreMaquina;
 
         this.mejoresPuntuaciones = new int[size];
-        this.mejoresJugadores = new int[size];
+        this.mejoresJugadores = new Jugador[size];
     }
 
     /**
@@ -81,7 +81,7 @@ public class MaquinaArcade {
                 "\n Estado de la máquina: " + this.estadoMaquina + "\n";
 
         for (int i = 0; i < mejoresPuntuaciones.length; i++){
-            texto += ( i + 1 ) + "º --> " + mejoresPuntuaciones[i] + "\n";
+            texto += (i + 1) + "º --> " + mejoresPuntuaciones[i] + "\n";
         }
         return texto;
     }
@@ -131,7 +131,7 @@ public class MaquinaArcade {
         return mejoresPuntuaciones;
     }
 
-    public int[] getMejoresJugadores() {
+    public Jugador[] getMejoresJugadores() {
         return mejoresJugadores;
     }
 }

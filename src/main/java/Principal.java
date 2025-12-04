@@ -1,5 +1,6 @@
 import model.Jugador;
 import model.MaquinaArcade;
+import model.SalaRecreativa;
 import utils.Utils;
 public class Principal {
     public static void main(String[] args) {
@@ -7,6 +8,7 @@ public class Principal {
         MaquinaArcade pingball = new MaquinaArcade("Pingball", "Juegos de salón", 20);
         MaquinaArcade DonkeyKong = new MaquinaArcade("Donkey Kong", "Plataforma", 15);
         Jugador j1 = new Jugador("Dani", "0001", 30);
+        Jugador j2 = new Jugador("Juan", "0002", 15);
 
         pingball.cambiarEstado(1);
         pingball.imprimirEstado();
@@ -32,6 +34,9 @@ public class Principal {
         j1.incrementarNumeroPartidas();
 
         System.out.println(j1);
+
+        SalaRecreativa.addJugador(j1);
+        SalaRecreativa.addJugador(j2);
 
     }
 }
