@@ -5,9 +5,31 @@ public class Jugador {
     private int creditosDisponibles;
     private int numeroPartidasJugadas;
 
-    public Jugador (String nombre, String idUnico){
+    public Jugador (String nombre, String idUnico, int creditosDisponibles){
         this.nombre = nombre;
         this.idUnico = idUnico;
+        this.creditosDisponibles = creditosDisponibles;
+    }
+
+    public void recargarCreditos (int sumaCreditos) {
+        this.creditosDisponibles += sumaCreditos;
+    }
+
+    public void gastarCreditos (int precioPorPartida){
+        if(this.creditosDisponibles > precioPorPartida) {
+            this.creditosDisponibles -= precioPorPartida;
+        }
+    }
+
+    public void incrementarNumeroPartidas () {
+            this.numeroPartidasJugadas++;
+    }
+
+    public String toString() {
+        return "\n Nombre: " + this.nombre +
+                "\n ID: " + this.idUnico +
+                "\n Créditos disponibles: " + this.creditosDisponibles +
+                "\n Numero de partidas jugadas: " + this.numeroPartidasJugadas;
     }
 
     public String getNombre() {
@@ -20,10 +42,6 @@ public class Jugador {
 
     public int getNumeroPartidasJugadas() {
         return numeroPartidasJugadas;
-    }
-
-    public void setNumeroPartidasJugadas(int numeroPartidasJugadas) {
-        this.numeroPartidasJugadas = numeroPartidasJugadas;
     }
 
     public int getCreditosDisponibles() {
