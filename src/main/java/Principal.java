@@ -3,8 +3,8 @@ import model.MaquinaArcade;
 import model.SalaRecreativa;
 import utils.Utils;
 public class Principal {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+        SalaRecreativa sala1 = new SalaRecreativa();
         MaquinaArcade pingball = new MaquinaArcade("Pingball", "Juegos de salón", 20);
         MaquinaArcade DonkeyKong = new MaquinaArcade("Donkey Kong", "Plataforma", 15);
         Jugador j1 = new Jugador("Dani", "0001", 30);
@@ -35,8 +35,10 @@ public class Principal {
 
         System.out.println(j1);
 
-        SalaRecreativa.addJugador(j1);
-        SalaRecreativa.addJugador(j2);
+        sala1.addJugador(j2);
+        sala1.addJugador(j1);
 
+        sala1.addJugador(j1);
+        System.out.println(sala1);
     }
 }
