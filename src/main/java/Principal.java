@@ -35,10 +35,24 @@ public class Principal {
 
         System.out.println(j1);
 
+        sala1.addJugador(j1);
         sala1.addJugador(j2);
-        sala1.addJugador(j1);
 
-        sala1.addJugador(j1);
+        sala1.addMaquina(pingball);
+        sala1.addMaquina(DonkeyKong);
+
         System.out.println(sala1);
+
+        Jugador jugadorEncontrado = sala1.buscarIDJugador("0001");
+
+        if(jugadorEncontrado != null){
+            System.out.println("El jugador es: " + jugadorEncontrado);
+        }
+
+        MaquinaArcade maquinaEncontrada = sala1.buscarNombreMaquina("pingball");
+
+        if(maquinaEncontrada != null){
+            System.out.println("La máquina es: " + maquinaEncontrada);
+        }
     }
 }

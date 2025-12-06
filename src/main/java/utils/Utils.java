@@ -4,6 +4,19 @@ import java.util.Scanner;
 public class Utils {
 
     /**
+     * Método con el que validamos todos los IDUnicos de cada jugador
+     * @param idUnico El ID unico de cada jugador
+     * @return Devuelves que el ID unico del jugador es correcto
+     */
+    public static boolean validaIdUnico (String idUnico){
+        boolean valido = false;
+        if(idUnico.length() == 4){
+            valido = true;
+        }
+        return valido;
+    }
+
+    /**
      * Método para pedir un entero por consola sin errores
      * @param mensaje Mensaje para pedir un entero
      * @param mensajeError Mensaje de error por si el usuario introduce otra cosa que no sea un entero

@@ -43,6 +43,14 @@ public class Jugador {
                 "\n Numero de partidas jugadas: " + this.numeroPartidasJugadas;
     }
 
+    public static boolean validaIdUnico (String idUnico){
+        boolean valido = false;
+        if(idUnico.length() == 4){
+            valido = true;
+        }
+        return valido;
+    }
+
     public String getNombre() {
         return nombre;
     }
