@@ -19,6 +19,10 @@ public class Principal {
         System.out.println(pingball.nuevaPartida());
         System.out.println(pingball.nuevaPartida());
         System.out.println(pingball.nuevaPartida());
+        System.out.println(DonkeyKong.nuevaPartida());
+        System.out.println(DonkeyKong.nuevaPartida());
+        System.out.println(DonkeyKong.nuevaPartida());
+        System.out.println(DonkeyKong.nuevaPartida());
 
         System.out.println(pingball);
 
@@ -54,5 +58,13 @@ public class Principal {
         if(maquinaEncontrada != null){
             System.out.println("La máquina es: " + maquinaEncontrada);
         }
+
+        System.out.println(sala1);
+
+        sala1.listarMaquinasActivas();
+
+        System.out.println(sala1.jugadorMasActivo());
+
+        System.out.println(sala1.maquinaConMasPartidasJugadas());
     }
 }
