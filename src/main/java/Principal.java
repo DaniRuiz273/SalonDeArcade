@@ -2,69 +2,91 @@ import model.Jugador;
 import model.MaquinaArcade;
 import model.SalaRecreativa;
 import utils.Utils;
+import java.util.Scanner;
 public class Principal {
     public static void main(String[] args) throws Exception {
-        SalaRecreativa sala1 = new SalaRecreativa();
-        MaquinaArcade pingball = new MaquinaArcade("Pingball", "Juegos de salón", 20);
-        MaquinaArcade DonkeyKong = new MaquinaArcade("Donkey Kong", "Plataforma", 15);
-        Jugador j1 = new Jugador("Dani", "0001", 30);
-        Jugador j2 = new Jugador("Juan", "0002", 15);
+        Scanner sc = new Scanner(System.in);
+        int opciones = 0;
+        SalaRecreativa ElTemploDelArcade = new SalaRecreativa();
 
-        pingball.cambiarEstado(1);
-        pingball.imprimirEstado();
+        Jugador j1 = new Jugador("Daniel", "0001", 20);
+        Jugador j2 = new Jugador("Manuel", "0002", 15);
+        Jugador j3 = new Jugador("María", "0003", 30);
+        ElTemploDelArcade.addJugador(j1);
+        ElTemploDelArcade.addJugador(j2);
+        ElTemploDelArcade.addJugador(j3);
 
-        DonkeyKong.cambiarEstado(0);
-        DonkeyKong.imprimirEstado();
+        MaquinaArcade pinball = new MaquinaArcade("Pinball", "Juego de salón", 10);
+        MaquinaArcade DonkeyKong = new MaquinaArcade("DonkeyKong", "Plataformas", 20);
+        ElTemploDelArcade.addMaquina(pinball);
+        ElTemploDelArcade.addMaquina(DonkeyKong);
 
-        System.out.println(pingball.nuevaPartida());
-        System.out.println(pingball.nuevaPartida());
-        System.out.println(pingball.nuevaPartida());
-        System.out.println(DonkeyKong.nuevaPartida());
-        System.out.println(DonkeyKong.nuevaPartida());
-        System.out.println(DonkeyKong.nuevaPartida());
-        System.out.println(DonkeyKong.nuevaPartida());
+        pinball.cambiarEstado(0);
+        DonkeyKong.cambiarEstado(1);
 
-        System.out.println(pingball);
+        do {
+            System.out.println("----- EL TEMPLO DEL ARCADE -----");
+            System.out.println("0. SALIR");
+            System.out.println("1. Registrar un nuevo jugador");
+            System.out.println("2. Registrar una nueva máquina arcade");
+            System.out.println("3. Recargar créditos de un jugador");
+            System.out.println("4. Listar jugadores");
+            System.out.println("5. Listar máquinas");
+            System.out.println("6. Listar máquinas activas");
+            System.out.println("7. Realizar mantenimiento a una máquina (reactivarla)");
+            System.out.println("8. Jugar una partida (Introduciendo ID y máquina)");
+            System.out.println("9. Mostrar el jugador más activo");
+            System.out.println("10. Mostrar la máquina más usada");
+            System.out.println("11. Mostra el ranking de una máquina concreta");
+            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 11);
+            switch (opciones){
+                case 1:
+                    Jugador j4 = new Jugador("Carlos", "0004", 15);
+                    ElTemploDelArcade.addJugador(j4);
+                    break;
 
-        j1.recargarCreditos(300);
-        System.out.println(j1.getCreditosDisponibles());
+                case 2:
+                    MaquinaArcade pacman = new MaquinaArcade("PAC-MAN", "Acción y laberintos", 15);
+                    ElTemploDelArcade.addMaquina(pacman);
+                    pacman.cambiarEstado(1);
+                    break;
 
-        j1.gastarCreditos(pingball.getPrecioPorPartida());
-        System.out.println(j1.getCreditosDisponibles());
+                case 3: ;
+                    j1.recargarCreditos(30);
+                    j2.recargarCreditos(15);
+                    j3.recargarCreditos(10);
+                    break;
 
-        j1.incrementarNumeroPartidas();
-        j1.incrementarNumeroPartidas();
-        j1.incrementarNumeroPartidas();
-        j1.incrementarNumeroPartidas();
+                case 4:
+                    System.out.println(ElTemploDelArcade.listarJugadores());
+                    break;
 
-        System.out.println(j1);
+                case 5:
+                    System.out.println(ElTemploDelArcade.listarMaquinas());
+                    break;
 
-        sala1.addJugador(j1);
-        sala1.addJugador(j2);
+                case 6:
+                    System.out.println(ElTemploDelArcade.listarMaquinasActivas());
+                    break;
 
-        sala1.addMaquina(pingball);
-        sala1.addMaquina(DonkeyKong);
+                case 7:
+                    pinball.cambiarEstado(1);
+                    break;
 
-        System.out.println(sala1);
+                case 8:
+                    ElTemploDelArcade.gestionarPartida(new Jugador("0004"), pinball);
+                    break;
 
-        Jugador jugadorEncontrado = sala1.buscarIDJugador("0001");
 
-        if(jugadorEncontrado != null){
-            System.out.println("El jugador es: " + jugadorEncontrado);
-        }
 
-        MaquinaArcade maquinaEncontrada = sala1.buscarNombreMaquina("pingball");
 
-        if(maquinaEncontrada != null){
-            System.out.println("La máquina es: " + maquinaEncontrada);
-        }
 
-        System.out.println(sala1);
 
-        sala1.listarMaquinasActivas();
 
-        System.out.println(sala1.jugadorMasActivo());
 
-        System.out.println(sala1.maquinaConMasPartidasJugadas());
+
+            }
+
+        }while (opciones != 0);
     }
 }

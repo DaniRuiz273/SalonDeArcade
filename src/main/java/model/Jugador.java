@@ -5,6 +5,10 @@ public class Jugador {
     private int creditosDisponibles;
     private int numeroPartidasJugadas;
 
+    public Jugador (String idUnico){
+        this.idUnico = idUnico;
+    }
+
     public Jugador (String nombre, String idUnico, int creditosDisponibles){
         this.nombre = nombre;
         this.idUnico = idUnico;
@@ -41,14 +45,6 @@ public class Jugador {
                 "\n ID: " + this.idUnico +
                 "\n Créditos disponibles: " + this.creditosDisponibles +
                 "\n Numero de partidas jugadas: " + this.numeroPartidasJugadas;
-    }
-
-    public static boolean validaIdUnico (String idUnico){
-        boolean valido = false;
-        if(idUnico.length() == 4){
-            valido = true;
-        }
-        return valido;
     }
 
     public String getNombre() {

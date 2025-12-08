@@ -4,16 +4,22 @@ import java.util.Scanner;
 public class Utils {
 
     /**
-     * Método con el que validamos todos los IDUnicos de cada jugador
-     * @param idUnico El ID unico de cada jugador
-     * @return Devuelves que el ID unico del jugador es correcto
+     * Método con el que pedimos un entero entre dos valores
+     * @param mensaje Mensaje donde indica que introduzcas un entero entre los dos valores
+     * @param mensajeError Si introduces otra cosa que no sea un entero entre los dos valores
+     * @param numeroMin Valor mínimo del intervalo
+     * @param numeroMax Valor máximo del intervalo
+     * @return Devuelve el entero
      */
-    public static boolean validaIdUnico (String idUnico){
-        boolean valido = false;
-        if(idUnico.length() == 4){
-            valido = true;
-        }
-        return valido;
+    public static int pideEnteroEntreValores(String mensaje, String mensajeError, int numeroMin, int numeroMax){
+        int numero = 0;
+        do {
+            numero = pideEntero(mensaje, mensajeError);
+            if(numero<numeroMin||numero>numeroMax){
+                System.out.println(mensajeError);
+            }
+        } while(numero<numeroMin||numero>numeroMax);
+        return numero;
     }
 
     /**

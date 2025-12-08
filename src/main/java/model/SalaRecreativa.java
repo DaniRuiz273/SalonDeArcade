@@ -2,13 +2,31 @@ package model;
 import utils.Utils;
 public class SalaRecreativa {
     private final int size = 5;
-    private final Jugador [] jugadores;
-    private final MaquinaArcade [] maquinas;
-    private int capacidadJugadores;
-    private int capacidadMaquinas;
+    private final Jugador [] jugadores; // Array donde se guardan los jugadores de la sala
+    private final MaquinaArcade [] maquinas; // Array donde se guardan las máquinas de la sala
+    private int capacidadJugadores; // Son los jugadores que hay actualmente dentro de la sala
+    private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
 
-    public void gestionarPartida (){
+    /**
+     * Método donde podemos gestionar una partida dentro de la sala
+     * @param jugador El jugador que va a jugar la partida
+     * @param maquina La máquina donde el jugador va a jugar
+     * @throws Exception Si la máquina no está activada y el jugador no tiene créditos suficientes para jugar una partida lanzará esta excepción
+     */
+    public void gestionarPartida (Jugador jugador, MaquinaArcade maquina) throws Exception {
+        if(maquina.EstadoMaquina()){ // Primero comprobamos que la máquina esté activada
+            if(jugador.getCreditosDisponibles() >= maquina.getPrecioPorPartida()){ // Ahora comprobamos que el jugador tengo créditos suficientes para poder jugar una partida
+                jugador.gastarCreditos(maquina.getPrecioPorPartida()); // Descontamos los créditos que cuesta jugar a la máquina al jugador
 
+                int puntuacion = maquina.nuevaPartida();
+                jugador.incrementarNumeroPartidas();
+                System.out.println("La puntuación de la partida ha sido: " + puntuacion);
+            } else {
+                throw new Exception ("El jugador no tiene suficientes créditos para jugar una partida");
+            }
+        } else {
+            throw new Exception ("La máquina esta desactivada, no se puede jugar");
+        }
     }
 
     /**
@@ -43,14 +61,16 @@ public class SalaRecreativa {
     /**
      * Método con el que solo imprimimos por pantalla las máquinas que están activas dentro de la sala
      */
-    public void listarMaquinasActivas (){
+    public String listarMaquinasActivas (){
+        String texto = "Máquinas activas: ";
         boolean estaActiva = false;
         for(int i = 0; i < capacidadMaquinas; i++){
             if(maquinas[i].EstadoMaquina()){
-                System.out.println(maquinas[i]);
+                texto += maquinas[i] + "\n";
                 estaActiva = true;
             }
         }
+        return texto;
     }
 
     /**
@@ -113,8 +133,32 @@ public class SalaRecreativa {
         }
     }
 
+    public String listarJugadores (){
+        String texto = "Jugadores en la sala: ";
+        if(capacidadJugadores == 0){
+            texto += "No hay jugadores en la sala";
+        } else {
+            for (int i = 0; i < capacidadJugadores; i++) { // Recorre el array hasta la capacidad actual
+                texto += jugadores[i] + "\n";
+            }
+        }
+        return texto;
+    }
+
+    public String listarMaquinas (){
+        String texto = "Maquinas en la sala : \n";
+        if(capacidadMaquinas == 0){
+            texto += "No hay máquinas en la sala";
+        } else {
+            for(int i = 0; i < capacidadMaquinas; i++){ // Recorre el array hasta la capacidad actual
+                texto += maquinas[i] + "\n";
+            }
+        }
+        return texto;
+    }
+
     public String toString() {
-        String texto = "Jugadores en la sala: \n"; // Esto lista los jugadores que hay dentro de la sala por pantalla
+        String texto = "Jugadores en la sala: ";
         if(capacidadJugadores == 0){
             texto += "No hay jugadores en la sala";
         } else {
@@ -123,7 +167,7 @@ public class SalaRecreativa {
             }
         }
 
-        texto += "Maquinas en la sala : \n"; // Esto lista a las máquinas que hay en la sala por pantalla
+        texto += "Maquinas en la sala : \n";
         if(capacidadMaquinas == 0){
             texto += "No hay máquinas en la sala";
         } else {
