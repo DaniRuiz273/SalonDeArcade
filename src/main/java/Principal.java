@@ -66,11 +66,11 @@ public class Principal {
                     break;
 
                 case 7:
-                    pinball.cambiarEstado(1);
+                    Vista.reactivarMaquina(ElTemploDelArcade);
                     break;
 
                 case 8:
-                    ElTemploDelArcade.gestionarPartida(ElTemploDelArcade.buscarIDJugador("0002"), ElTemploDelArcade.buscarNombreMaquina("pinball"));
+                    Vista.jugarUnaPartida(ElTemploDelArcade);
                     break;
             }
 

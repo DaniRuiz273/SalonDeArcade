@@ -22,7 +22,7 @@ public class SalaRecreativa {
                 jugador.incrementarNumeroPartidas();
                 System.out.println("La puntuación de la partida ha sido: " + puntuacion);
             } else {
-                throw new Exception ("El jugador no tiene suficientes créditos para jugar una partida");
+                throw new Exception ("No existe ningún jugador con esa ID"); // Si buscamos un idUnico que no existe lanzará esta excepción
             }
         } else {
             throw new Exception ("La máquina esta desactivada, no se puede jugar");
@@ -77,45 +77,30 @@ public class SalaRecreativa {
      * Método con el que buscamos una máquina de sala por su nombre
      * @param nombre Es el nombre de la máquina que queremos buscar
      * @return Devuelve los atributos de la máquina si coincide con su nombre
-     * @throws Exception Si no existe una máquina con ese nombre lanzará la excepción
      */
-    public MaquinaArcade buscarNombreMaquina (String nombre) throws Exception {
+    public MaquinaArcade buscarNombreMaquina (String nombre) {
         for (MaquinaArcade maquina : maquinas){ // Recorre cada máquina del array y lo llamamos máquina
             if (maquina != null && maquina.getNombreMaquina().trim().equalsIgnoreCase(nombre.trim())){ // El nombre de la máquina lo compara con el nombre de la máquina que estamos buscando
                 return maquina; // Devuelve la máquina si coincide con su nombre
             }
         }
-        throw new Exception ("No existe ninguna máquina con ese nombre"); // Si buscamos una máquina con un nombre que no existe lanzará esta excepción
+        return null;
     }
 
     /**
      * Método con el que podemos buscar a un jugador de la sala con su idUnico
      * @param idUnico Es el identificador único de cada jugador
      * @return Devuelve el jugador si coincide con el identificador único
-     * @throws Exception Si no hay un jugador con ese idUnico lanzará esa excepción
      */
-    public Jugador buscarIDJugador (String idUnico) throws Exception{
+    public Jugador buscarIDJugador (String idUnico){
         for (Jugador jugador : jugadores){ // Recorre cada jugador del array y lo llamamos jugador
             if(jugador.getIdUnico().equals(idUnico)){ // El idUnico del jugador lo compara con el idUnico que estamos buscando
                 return jugador; // Devuelve el jugador si coincide con el idUnico
-            } else {
-                throw new Exception ("No existe ningún jugador con esa ID"); // Si buscamos un idUnico que no existe lanzará esta excepción
             }
+
         }
-        return null; // Si no encuentra a ningún jugador con ese ID devuelve null
+        return null;
     }
-
-    public void recargarCreditos(String idJugador, int cantidad) throws Exception {
-        Jugador jugador = buscarIDJugador(idJugador);
-
-        if (jugador != null) {
-            jugador.recargarCreditos(cantidad);
-        } else {
-            throw new Exception("No existe un jugador con ese ID");
-        }
-    }
-
-
 
     /**
      * Método con el que añadimos un jugador en la sala
