@@ -2,6 +2,7 @@ import model.Jugador;
 import model.MaquinaArcade;
 import model.SalaRecreativa;
 import utils.Utils;
+import utils.Vista;
 import java.util.Scanner;
 public class Principal {
     public static void main(String[] args) throws Exception {
@@ -41,20 +42,15 @@ public class Principal {
             opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 11);
             switch (opciones){
                 case 1:
-                    Jugador j4 = new Jugador("Carlos", "0004", 15);
-                    ElTemploDelArcade.addJugador(j4);
+                    ElTemploDelArcade.addJugador(Vista.registraJugador());
                     break;
 
                 case 2:
-                    MaquinaArcade pacman = new MaquinaArcade("PAC-MAN", "Acción y laberintos", 15);
-                    ElTemploDelArcade.addMaquina(pacman);
-                    pacman.cambiarEstado(1);
+                    ElTemploDelArcade.addMaquina(Vista.registraMaquina());
                     break;
 
                 case 3: ;
-                    j1.recargarCreditos(30);
-                    j2.recargarCreditos(15);
-                    j3.recargarCreditos(10);
+                    Vista.recargarCreditos(ElTemploDelArcade);
                     break;
 
                 case 4:
@@ -74,17 +70,8 @@ public class Principal {
                     break;
 
                 case 8:
-                    ElTemploDelArcade.gestionarPartida(new Jugador("0004"), pinball);
+                    ElTemploDelArcade.gestionarPartida(ElTemploDelArcade.buscarIDJugador("0002"), ElTemploDelArcade.buscarNombreMaquina("pinball"));
                     break;
-
-
-
-
-
-
-
-
-
             }
 
         }while (opciones != 0);

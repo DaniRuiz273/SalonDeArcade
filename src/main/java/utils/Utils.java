@@ -71,4 +71,22 @@ public class Utils {
     public static int generaNumeroAleatorio (int numMin, int numMax){
         return (int)(Math.random()*(numMax-numMin+1)+numMin);
     }
+
+    public static String pideCadena (String msn, String msnError){
+        Scanner sc = new Scanner(System.in);
+        String cadena = "";
+        boolean esValido = false;
+
+        while (!esValido){
+            System.out.println(msn);
+            cadena = sc.nextLine().trim();
+
+            if(!cadena.isEmpty()){
+                esValido = true;
+            } else {
+                System.out.println(msnError);
+            }
+        }
+        return cadena;
+    }
 }

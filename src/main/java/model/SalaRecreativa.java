@@ -105,6 +105,18 @@ public class SalaRecreativa {
         return null; // Si no encuentra a ningún jugador con ese ID devuelve null
     }
 
+    public void recargarCreditos(String idJugador, int cantidad) throws Exception {
+        Jugador jugador = buscarIDJugador(idJugador);
+
+        if (jugador != null) {
+            jugador.recargarCreditos(cantidad);
+        } else {
+            throw new Exception("No existe un jugador con ese ID");
+        }
+    }
+
+
+
     /**
      * Método con el que añadimos un jugador en la sala
      * @param jugadorAdd Es el jugador que queremos añadir a la sala
