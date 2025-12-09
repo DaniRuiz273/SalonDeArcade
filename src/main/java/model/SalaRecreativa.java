@@ -16,13 +16,13 @@ public class SalaRecreativa {
     public void gestionarPartida (Jugador jugador, MaquinaArcade maquina) throws Exception {
         if(maquina.EstadoMaquina()){ // Primero comprobamos que la máquina esté activada
             if(jugador.getCreditosDisponibles() >= maquina.getPrecioPorPartida()){ // Ahora comprobamos que el jugador tengo créditos suficientes para poder jugar una partida
-                jugador.gastarCreditos(maquina.getPrecioPorPartida()); // Descontamos los créditos que cuesta jugar a la máquina al jugador
+                jugador.gastarCreditos(maquina.getPrecioPorPartida()); // Descontamos los créditos que cuesta jugar la máquina, al jugador
 
                 int puntuacion = maquina.nuevaPartida();
                 jugador.incrementarNumeroPartidas();
                 System.out.println("La puntuación de la partida ha sido: " + puntuacion);
             } else {
-                throw new Exception ("No existe ningún jugador con esa ID"); // Si buscamos un idUnico que no existe lanzará esta excepción
+                throw new Exception ("No tiene suficientes créditos para jugar una partida"); // Si buscamos un idUnico que no existe lanzará esta excepción
             }
         } else {
             throw new Exception ("La máquina esta desactivada, no se puede jugar");
@@ -94,10 +94,9 @@ public class SalaRecreativa {
      */
     public Jugador buscarIDJugador (String idUnico){
         for (Jugador jugador : jugadores){ // Recorre cada jugador del array y lo llamamos jugador
-            if(jugador.getIdUnico().equals(idUnico)){ // El idUnico del jugador lo compara con el idUnico que estamos buscando
+            if(jugador.getIdUnico().trim().equals(idUnico)){ // El idUnico del jugador lo compara con el idUnico que estamos buscando
                 return jugador; // Devuelve el jugador si coincide con el idUnico
             }
-
         }
         return null;
     }

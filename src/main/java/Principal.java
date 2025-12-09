@@ -22,7 +22,7 @@ public class Principal {
         ElTemploDelArcade.addMaquina(pinball);
         ElTemploDelArcade.addMaquina(DonkeyKong);
 
-        pinball.cambiarEstado(0);
+        pinball.cambiarEstado(1);
         DonkeyKong.cambiarEstado(1);
 
         do {
@@ -71,6 +71,14 @@ public class Principal {
 
                 case 8:
                     Vista.jugarUnaPartida(ElTemploDelArcade);
+                    break;
+
+                case 9:
+                    System.out.println(ElTemploDelArcade.jugadorMasActivo());
+                    break;
+
+                case 10:
+                    System.out.println(ElTemploDelArcade.maquinaConMasPartidasJugadas());
                     break;
             }
 
