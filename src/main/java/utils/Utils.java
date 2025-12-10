@@ -47,20 +47,16 @@ public class Utils {
     }
 
     /**
-     * Método para comprobar si un número esta dentro del rango indicado
-     * @param valor Entero introducido por el usuario
-     * @param numeroMin Valor mínimo del rango
-     * @param numeroMax Valor máximo del rango
-     * @return Devuelve true si está dentro del rango y false si está fuero del rango
+     * Método con el que comprobamos que un entero este dentro de un rango
+     * @param valor Entero que queremos comprobar
+     * @param numeroMin Valor minimo del intervalo
+     * @param numeroMax Valor maximo del intervalo
+     * @return Devuelve true si está dentro del rango y false si no lo está
      */
-    public static boolean comprobarRango(int valor, int numeroMin, int numeroMax){;
-        boolean esValido;
-        if(valor < numeroMin || numeroMax > valor){
-            return esValido = false;
-        } else {
-            return esValido = true;
-        }
+    public static boolean comprobarRango(int valor, int numeroMin, int numeroMax) {
+        return valor >= numeroMin && valor <= numeroMax;
     }
+
 
     /**
      * Método con el que generamos un numero aleatorio dentro de un rango

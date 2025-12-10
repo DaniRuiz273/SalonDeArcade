@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Vista</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">utils</a>
+</div>
+
+<h1>Coverage Summary for Class: Vista (utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Vista</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package utils;
+&nbsp;import model.Jugador;
+&nbsp;import model.MaquinaArcade;
+&nbsp;import model.SalaRecreativa;
+<b class="nc">&nbsp;public class Vista {</b>
+&nbsp;
+&nbsp;    public static void mostrarRanking (SalaRecreativa sala){
+<b class="nc">&nbsp;        String nombre  = Utils.pideCadena(&quot;Introduce el nombre de la máquina para ver su ranking:&quot;, &quot;Error, debes de introducir el nombre de una máquina que esté en la sala&quot;);</b>
+<b class="nc">&nbsp;        MaquinaArcade maquina = sala.buscarNombreMaquina(nombre);</b>
+<b class="nc">&nbsp;        if (maquina == null) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No existe ninguna máquina con ese nombre.&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println(sala.listarMaquinasActivas());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que podemos jugar una partida a través del ID del jugador y la máquina a la que queremos jugar
+&nbsp;     * @param sala Donde están los jugadores y máquinas
+&nbsp;     * @throws Exception Si la máquina no está activada o el jugador no tiene créditos disponibles, lanzará esta excepción
+&nbsp;     */
+&nbsp;    public static void jugarUnaPartida (SalaRecreativa sala) throws Exception {
+<b class="nc">&nbsp;        Jugador jugador = sala.buscarIDJugador(Utils.pideCadena(&quot;Introduce la ID del jugador que va a jugar la partida:&quot;, &quot;Error, esa ID no existe en la sala&quot;));</b>
+<b class="nc">&nbsp;        MaquinaArcade maquina = sala.buscarNombreMaquina(Utils.pideCadena(&quot;Introduce el nombre de la máquina a la que quieres jugar:&quot;, &quot;Error, esa máquina no existe en la sala&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;        sala.gestionarPartida(jugador, maquina);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que reactivamos una máquina elegida por el usuario
+&nbsp;     * @param sala Sala donde se encuentran las máquinas
+&nbsp;     */
+&nbsp;    public static void reactivarMaquina(SalaRecreativa sala) {
+<b class="nc">&nbsp;        String nombre = Utils.pideCadena(&quot;Introduce el nombre de la máquina que quieres reactivar:&quot;, &quot;Error, debes de introducir un String&quot;);</b>
+<b class="nc">&nbsp;        MaquinaArcade maquina = sala.buscarNombreMaquina(nombre);</b>
+<b class="nc">&nbsp;        if (maquina == null) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No existe ninguna máquina con ese nombre.&quot;);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            maquina.cambiarEstado(1); // Activar</b>
+<b class="nc">&nbsp;            System.out.println(&quot;La máquina ha sido reactivada correctamente.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que el usuario introduce por consola un nuevo jugador
+&nbsp;     * @return Devuelve a un nuevo jugador de la clase Jugador
+&nbsp;     */
+&nbsp;    public static Jugador registraJugador (){
+<b class="nc">&nbsp;        String nombre = Utils.pideCadena(&quot;Introduce el nombre: &quot;, &quot;Error&quot;);</b>
+<b class="nc">&nbsp;        String idUnico = Utils.pideCadena(&quot;Introduce el ID del jugador: &quot;, &quot;Error&quot;);</b>
+<b class="nc">&nbsp;        int creditosDisponibles = Utils.pideEntero(&quot;Introduce los créditos que tiene el jugador: &quot;, &quot;Error, debes de introducir un entero.&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new Jugador(nombre, idUnico, creditosDisponibles);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que el usuario introduce por consola una nueva máquina
+&nbsp;     * @return Devuelve una nueva máquina de la clase Máquina
+&nbsp;     */
+&nbsp;    public static MaquinaArcade registraMaquina (){
+<b class="nc">&nbsp;        String nombre = Utils.pideCadena(&quot;Introduce el nombre de la máquina: &quot;, &quot;Error, debes de introducir un string&quot;);</b>
+<b class="nc">&nbsp;        String genero = Utils.pideCadena(&quot;Introduce el genero de la máquina: &quot;, &quot;Error, debes de introducir un string&quot;);</b>
+<b class="nc">&nbsp;        int precioPorPartida = Utils.pideEntero(&quot;Introduce el precio por partida: &quot;, &quot;Error, debes de introducir un entero&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new MaquinaArcade(nombre, genero, precioPorPartida);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que recargamos los creditos de un jugador, donde el usuario elige al jugador que quiere recargarle los créditos y cuantos va a añadir
+&nbsp;     * @param sala Sala donde está el jugador al que queremos recargarle los créditos
+&nbsp;     */
+&nbsp;    public static void recargarCreditos(SalaRecreativa sala){
+<b class="nc">&nbsp;        String id = Utils.pideCadena(&quot;Introduce el ID del jugador: &quot;, &quot;Error, debes de introducir un String&quot;).trim();</b>
+<b class="nc">&nbsp;        Jugador jugador = sala.buscarIDJugador(id);</b>
+<b class="nc">&nbsp;        if (jugador == null) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No existe un jugador con ese ID.&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        int cantidad = Utils.pideEntero(&quot;¿Cuántos créditos quieres recargar?: &quot;, &quot;Error, debes de introducir un entero&quot;);</b>
+<b class="nc">&nbsp;        jugador.recargarCreditos(cantidad);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Créditos recargados. Ahora tiene: &quot; + jugador.getCreditosDisponibles());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-10 18:20</div>
+</div>
+</body>
+</html>

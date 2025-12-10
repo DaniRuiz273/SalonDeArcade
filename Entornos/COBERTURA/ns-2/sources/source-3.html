@@ -1,0 +1,309 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SalaRecreativa</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model</a>
+</div>
+
+<h1>Coverage Summary for Class: SalaRecreativa (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SalaRecreativa</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28,6%
+  </span>
+  <span class="absValue">
+    (4/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10,9%
+  </span>
+  <span class="absValue">
+    (5/46)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    26,4%
+  </span>
+  <span class="absValue">
+    (19/72)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package model;
+&nbsp;import utils.Utils;
+&nbsp;public class SalaRecreativa {
+<b class="fc">&nbsp;    private final int size = 5;</b>
+&nbsp;    private final Jugador [] jugadores; // Array donde se guardan los jugadores de la sala
+&nbsp;    private final MaquinaArcade [] maquinas; // Array donde se guardan las máquinas de la sala
+&nbsp;    private int capacidadJugadores; // Son los jugadores que hay actualmente dentro de la sala
+&nbsp;    private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método donde podemos gestionar una partida dentro de la sala
+&nbsp;     * @param jugador El jugador que va a jugar la partida
+&nbsp;     * @param maquina La máquina donde el jugador va a jugar
+&nbsp;     * @throws Exception Si la máquina no está activada y el jugador no tiene créditos suficientes para jugar una partida lanzará esta excepción
+&nbsp;     */
+&nbsp;    public void gestionarPartida (Jugador jugador, MaquinaArcade maquina) throws Exception {
+<b class="fc">&nbsp;        if(maquina.EstadoMaquina()){ // Primero comprobamos que la máquina esté activada</b>
+<b class="pc">&nbsp;            if(jugador.getCreditosDisponibles() &gt;= maquina.getPrecioPorPartida()){ // Ahora comprobamos que el jugador tengo créditos suficientes para poder jugar una partida</b>
+<b class="fc">&nbsp;                jugador.gastarCreditos(maquina.getPrecioPorPartida()); // Descontamos los créditos que cuesta jugar la máquina, al jugador</b>
+&nbsp;
+<b class="fc">&nbsp;                int puntuacion = maquina.nuevaPartida();</b>
+<b class="fc">&nbsp;                jugador.incrementarNumeroPartidas();</b>
+<b class="fc">&nbsp;                System.out.println(&quot;La puntuación de la partida ha sido: &quot; + puntuacion);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                throw new Exception (&quot;No tiene suficientes créditos para jugar una partida&quot;); // Si buscamos un idUnico que no existe lanzará esta excepción</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="fc">&nbsp;            throw new Exception (&quot;La máquina esta desactivada, no se puede jugar&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que comprobamos cual es la máquina más utilizada en la sala
+&nbsp;     * @return Devuelve la máquina más utilizada de la sala
+&nbsp;     */
+&nbsp;    public MaquinaArcade maquinaConMasPartidasJugadas (){
+<b class="nc">&nbsp;        MaquinaArcade maquinaMasJugada = this.maquinas[0]; // Pongo como la máquina más utilizada a la primera del array</b>
+<b class="nc">&nbsp;        for(int i = 1; i &lt; this.capacidadMaquinas; i++) {</b>
+<b class="nc">&nbsp;            if (this.maquinas[i].getContadorPartidasJugadas() &gt; maquinaMasJugada.getContadorPartidasJugadas()) { // Ahora comparo la primera máquina con la siguiente, si la segunda máquina no tiene más partidas sigue en el bucle hasta encontrar una máquina con más partidas o hasta que no haya más máquinas</b>
+<b class="nc">&nbsp;                maquinaMasJugada = this.maquinas[i]; // Si hay una máquina con más partidas se cambia</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return maquinaMasJugada;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que encontramos cual es el jugador más activo de la sala
+&nbsp;     * @return Devuelve el jugador más activo de la sala
+&nbsp;     */
+&nbsp;    public Jugador jugadorMasActivo() {
+<b class="nc">&nbsp;        Jugador masActivo = this.jugadores[0];   // Empiezo poniendo al primer jugador como que es el más activo</b>
+<b class="nc">&nbsp;        for (int i = 1; i &lt; this.capacidadJugadores; i++) {</b>
+<b class="nc">&nbsp;            if (this.jugadores[i].getNumeroPartidasJugadas() &gt; masActivo.getNumeroPartidasJugadas()) { // Ahora comparo de uno en uno para saber si tienen más partidas jugadas que el anterior</b>
+<b class="nc">&nbsp;                masActivo = this.jugadores[i];   // Si hay otro jugador con más partidas se cambia</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return masActivo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que solo imprimimos por pantalla las máquinas que están activas dentro de la sala
+&nbsp;     */
+&nbsp;    public String listarMaquinasActivas (){
+<b class="nc">&nbsp;        String texto = &quot;Máquinas activas: &quot;;</b>
+<b class="nc">&nbsp;        boolean estaActiva = false;</b>
+<b class="nc">&nbsp;        for(int i = 0; i &lt; this.capacidadMaquinas; i++){</b>
+<b class="nc">&nbsp;            if(this.maquinas[i].EstadoMaquina()){</b>
+<b class="nc">&nbsp;                texto += this.maquinas[i] + &quot;\n&quot;;</b>
+<b class="nc">&nbsp;                estaActiva = true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return texto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que buscamos una máquina de sala por su nombre
+&nbsp;     * @param nombre Es el nombre de la máquina que queremos buscar
+&nbsp;     * @return Devuelve los atributos de la máquina si coincide con su nombre
+&nbsp;     */
+&nbsp;    public MaquinaArcade buscarNombreMaquina (String nombre) {
+<b class="nc">&nbsp;        for (MaquinaArcade maquina : this.maquinas){ // Recorre cada máquina del array y lo llamamos máquina</b>
+<b class="nc">&nbsp;            if (maquina != null &amp;&amp; maquina.getNombreMaquina().trim().equalsIgnoreCase(nombre.trim())){ // El nombre de la máquina lo compara con el nombre de la máquina que estamos buscando</b>
+<b class="nc">&nbsp;                return maquina; // Devuelve la máquina si coincide con su nombre</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que podemos buscar a un jugador de la sala con su idUnico
+&nbsp;     * @param idUnico Es el identificador único de cada jugador
+&nbsp;     * @return Devuelve el jugador si coincide con el identificador único
+&nbsp;     */
+&nbsp;    public Jugador buscarIDJugador (String idUnico){
+<b class="nc">&nbsp;        for (Jugador jugador : this.jugadores){ // Recorre cada jugador del array y lo llamamos jugador</b>
+<b class="nc">&nbsp;            if(jugador.getIdUnico().trim().equals(idUnico)){ // El idUnico del jugador lo compara con el idUnico que estamos buscando</b>
+<b class="nc">&nbsp;                return jugador; // Devuelve el jugador si coincide con el idUnico</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que añadimos un jugador en la sala
+&nbsp;     * @param jugadorAdd Es el jugador que queremos añadir a la sala
+&nbsp;     * @throws Exception Si no hay más hueco para jugadores en la sala lanzará esa excepción
+&nbsp;     */
+&nbsp;    public void addJugador (Jugador jugadorAdd) throws Exception {
+<b class="pc">&nbsp;        if(this.capacidadJugadores &lt; this.size){ // Comprobamos que haya capacidad en la sala</b>
+<b class="fc">&nbsp;            this.jugadores[this.capacidadJugadores] = jugadorAdd; // Si hay espacio en la sala entonces añadimos un jugador</b>
+<b class="fc">&nbsp;            this.capacidadJugadores++; // Aumenta la capacidadActual, es decir, que ahora en la sala hay un jugador más</b>
+&nbsp;        }else {
+<b class="nc">&nbsp;            throw new Exception (&quot;No se pueden registrar más jugadores porque no hay más espacio&quot;); // Cuando no hay más sitio para jugadores en la sala e intentamos añadir uno lanzará la excepción</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que añadimos una máquina a una sala
+&nbsp;     * @param maquinaAdd Es la máquina que queremos añadir a la sala
+&nbsp;     * @throws Exception Si bo hay sitio para más máquinas en la sala lanza esa excepción
+&nbsp;     */
+&nbsp;    public void addMaquina (MaquinaArcade maquinaAdd) throws Exception {
+<b class="pc">&nbsp;        if(this.capacidadMaquinas &lt; this.size){ // Comprobamos que haya capacidad en la sala</b>
+<b class="fc">&nbsp;            this.maquinas[this.capacidadMaquinas] = maquinaAdd; // Si hay espacio en la sala entonces añadimos un jugador</b>
+<b class="fc">&nbsp;            this.capacidadMaquinas++; // Aumenta la capacidadActual, es decir, que ahora en la sala hay un jugador más</b>
+&nbsp;        }else {
+<b class="nc">&nbsp;            throw new Exception (&quot;No se pueden registrar más jugadores porque no hay más espacio&quot;); // Cuando no hay más sitio para jugadores en la sala e intentamos añadir uno lanzará la excepción</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public String listarJugadores (){
+<b class="nc">&nbsp;        String texto = &quot;Jugadores en la sala: &quot;;</b>
+<b class="nc">&nbsp;        if(this.capacidadJugadores == 0){</b>
+<b class="nc">&nbsp;            texto += &quot;No hay jugadores en la sala&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            for (int i = 0; i &lt; this.capacidadJugadores; i++) { // Recorre el array hasta la capacidad actual</b>
+<b class="nc">&nbsp;                texto += this.jugadores[i] + &quot;\n&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return texto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String listarMaquinas (){
+<b class="nc">&nbsp;        String texto = &quot;Maquinas en la sala : \n&quot;;</b>
+<b class="nc">&nbsp;        if(this.capacidadMaquinas == 0){</b>
+<b class="nc">&nbsp;            texto += &quot;No hay máquinas en la sala&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            for(int i = 0; i &lt; this.capacidadMaquinas; i++){ // Recorre el array hasta la capacidad actual</b>
+<b class="nc">&nbsp;                texto += this.maquinas[i] + &quot;\n&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return texto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        String texto = &quot;Jugadores en la sala: &quot;;</b>
+<b class="nc">&nbsp;        if(this.capacidadJugadores == 0){</b>
+<b class="nc">&nbsp;            texto += &quot;No hay jugadores en la sala&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            for (int i = 0; i &lt; this.capacidadJugadores; i++) { // Recorre el array hasta la capacidad actual</b>
+<b class="nc">&nbsp;                texto += this.jugadores[i] + &quot;\n&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        texto += &quot;Maquinas en la sala : \n&quot;;</b>
+<b class="nc">&nbsp;        if(this.capacidadMaquinas == 0){</b>
+<b class="nc">&nbsp;            texto += &quot;No hay máquinas en la sala&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            for(int i = 0; i &lt; this.capacidadMaquinas; i++){ // Recorre el array hasta la capacidad actual</b>
+<b class="nc">&nbsp;                texto += this.maquinas[i] + &quot;\n&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return texto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    public SalaRecreativa (){</b>
+<b class="fc">&nbsp;        this.jugadores = new Jugador[size];</b>
+<b class="fc">&nbsp;        this.maquinas = new MaquinaArcade[size];</b>
+&nbsp;
+<b class="fc">&nbsp;        this.capacidadJugadores = 0;</b>
+<b class="fc">&nbsp;        this.capacidadMaquinas = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public MaquinaArcade[] getMaquinasArcade() {
+<b class="nc">&nbsp;        return maquinas;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Jugador[] getJugadores() {
+<b class="nc">&nbsp;        return jugadores;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-10 18:20</div>
+</div>
+</body>
+</html>

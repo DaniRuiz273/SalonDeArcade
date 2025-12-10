@@ -42,12 +42,10 @@ public class Principal {
             opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 11);
             switch (opciones){
                 case 1:
-                    // TODO: Tengo que comprobar que si pongo el mismo nombre o idUnico de un jugador que ya esta registrado que te sale un error.
                     ElTemploDelArcade.addJugador(Vista.registraJugador());
                     break;
 
                 case 2:
-                    // TODO: Comprobar que si el nombre introducido coincide con el de una máquina ya registrada te sale un error.
                     ElTemploDelArcade.addMaquina(Vista.registraMaquina());
                     break;
 

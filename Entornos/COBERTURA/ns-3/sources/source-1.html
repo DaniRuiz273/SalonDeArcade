@@ -1,0 +1,204 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Utils</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">utils</a>
+</div>
+
+<h1>Coverage Summary for Class: Utils (utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Utils</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    22,2%
+  </span>
+  <span class="absValue">
+    (4/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,7%
+  </span>
+  <span class="absValue">
+    (2/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package utils;
+&nbsp;import java.util.InputMismatchException;
+&nbsp;import java.util.Scanner;
+<b class="nc">&nbsp;public class Utils {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que pedimos un entero entre dos valores
+&nbsp;     * @param mensaje Mensaje donde indica que introduzcas un entero entre los dos valores
+&nbsp;     * @param mensajeError Si introduces otra cosa que no sea un entero entre los dos valores
+&nbsp;     * @param numeroMin Valor mínimo del intervalo
+&nbsp;     * @param numeroMax Valor máximo del intervalo
+&nbsp;     * @return Devuelve el entero
+&nbsp;     */
+&nbsp;    public static int pideEnteroEntreValores(String mensaje, String mensajeError, int numeroMin, int numeroMax){
+<b class="nc">&nbsp;        int numero = 0;</b>
+&nbsp;        do {
+<b class="nc">&nbsp;            numero = pideEntero(mensaje, mensajeError);</b>
+<b class="nc">&nbsp;            if(numero&lt;numeroMin||numero&gt;numeroMax){</b>
+<b class="nc">&nbsp;                System.out.println(mensajeError);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } while(numero&lt;numeroMin||numero&gt;numeroMax);</b>
+<b class="nc">&nbsp;        return numero;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método para pedir un entero por consola sin errores
+&nbsp;     * @param mensaje Mensaje para pedir un entero
+&nbsp;     * @param mensajeError Mensaje de error por si el usuario introduce otra cosa que no sea un entero
+&nbsp;     * @return Devuelve el número introducido por el usuario
+&nbsp;     */
+&nbsp;    public static int pideEntero( String mensaje, String mensajeError){
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        int numero = 0;</b>
+<b class="nc">&nbsp;        boolean noHayError = true;</b>
+&nbsp;        do {
+<b class="nc">&nbsp;            System.out.println(mensaje);</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                numero = sc.nextInt();</b>
+<b class="nc">&nbsp;                noHayError = true;</b>
+&nbsp;            } catch (InputMismatchException e) {
+<b class="nc">&nbsp;                System.out.println(mensajeError);</b>
+<b class="nc">&nbsp;                noHayError = false;</b>
+<b class="nc">&nbsp;                sc.nextLine(); // Limpiar buffer</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } while (!noHayError);</b>
+<b class="nc">&nbsp;        return numero;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que comprobamos que un entero este dentro de un rango
+&nbsp;     * @param valor Entero que queremos comprobar
+&nbsp;     * @param numeroMin Valor minimo del intervalo
+&nbsp;     * @param numeroMax Valor maximo del intervalo
+&nbsp;     * @return Devuelve true si está dentro del rango y false si no lo está
+&nbsp;     */
+&nbsp;    public static boolean comprobarRango(int valor, int numeroMin, int numeroMax) {
+<b class="fc">&nbsp;        return valor &gt;= numeroMin &amp;&amp; valor &lt;= numeroMax;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método con el que generamos un numero aleatorio dentro de un rango
+&nbsp;     * @param numMin Valor mínimo del rango
+&nbsp;     * @param numMax Valor máximo del rango
+&nbsp;     * @return Devuelve el número aleatorio generado
+&nbsp;     */
+&nbsp;    public static int generaNumeroAleatorio (int numMin, int numMax){
+<b class="fc">&nbsp;        return (int)(Math.random()*(numMax-numMin+1)+numMin);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String pideCadena (String msn, String msnError){
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        String cadena = &quot;&quot;;</b>
+<b class="nc">&nbsp;        boolean esValido = false;</b>
+&nbsp;
+<b class="nc">&nbsp;        while (!esValido){</b>
+<b class="nc">&nbsp;            System.out.println(msn);</b>
+<b class="nc">&nbsp;            cadena = sc.nextLine().trim();</b>
+&nbsp;
+<b class="nc">&nbsp;            if(!cadena.isEmpty()){</b>
+<b class="nc">&nbsp;                esValido = true;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                System.out.println(msnError);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return cadena;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-10 18:20</div>
+</div>
+</body>
+</html>

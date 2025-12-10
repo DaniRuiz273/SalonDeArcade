@@ -10,6 +10,7 @@ public class Vista {
         if (maquina == null) {
             System.out.println("No existe ninguna máquina con ese nombre.");
         }
+        System.out.println(sala.listarMaquinasActivas());
     }
 
     /**
