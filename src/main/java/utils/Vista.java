@@ -4,8 +4,16 @@ import model.MaquinaArcade;
 import model.SalaRecreativa;
 public class Vista {
 
+    public static void mostrarRanking (SalaRecreativa sala){
+        String nombre  = Utils.pideCadena("Introduce el nombre de la máquina para ver su ranking:", "Error, debes de introducir el nombre de una máquina que esté en la sala");
+        MaquinaArcade maquina = sala.buscarNombreMaquina(nombre);
+        if (maquina == null) {
+            System.out.println("No existe ninguna máquina con ese nombre.");
+        }
+    }
+
     /**
-     * Método con el que podemos jugar una partida através del ID del jugador y la máquina a la que queremos jugar
+     * Método con el que podemos jugar una partida a través del ID del jugador y la máquina a la que queremos jugar
      * @param sala Donde están los jugadores y máquinas
      * @throws Exception Si la máquina no está activada o el jugador no tiene créditos disponibles, lanzará esta excepción
      */

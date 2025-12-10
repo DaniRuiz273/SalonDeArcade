@@ -10,9 +10,9 @@ public class Principal {
         int opciones = 0;
         SalaRecreativa ElTemploDelArcade = new SalaRecreativa();
 
-        Jugador j1 = new Jugador("Daniel", "0001", 20);
-        Jugador j2 = new Jugador("Manuel", "0002", 15);
-        Jugador j3 = new Jugador("María", "0003", 30);
+        Jugador j1 = new Jugador("Messi", "0001", 20);
+        Jugador j2 = new Jugador("Cristiano", "0002", 15);
+        Jugador j3 = new Jugador("Maradona", "0003", 30);
         ElTemploDelArcade.addJugador(j1);
         ElTemploDelArcade.addJugador(j2);
         ElTemploDelArcade.addJugador(j3);
@@ -42,10 +42,12 @@ public class Principal {
             opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 11);
             switch (opciones){
                 case 1:
+                    // TODO: Tengo que comprobar que si pongo el mismo nombre o idUnico de un jugador que ya esta registrado que te sale un error.
                     ElTemploDelArcade.addJugador(Vista.registraJugador());
                     break;
 
                 case 2:
+                    // TODO: Comprobar que si el nombre introducido coincide con el de una máquina ya registrada te sale un error.
                     ElTemploDelArcade.addMaquina(Vista.registraMaquina());
                     break;
 
@@ -80,8 +82,11 @@ public class Principal {
                 case 10:
                     System.out.println(ElTemploDelArcade.maquinaConMasPartidasJugadas());
                     break;
-            }
 
+                case 11:
+                    Vista.mostrarRanking(ElTemploDelArcade);
+                    break;
+            }
         }while (opciones != 0);
     }
 }

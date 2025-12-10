@@ -9,6 +9,7 @@ public class MaquinaArcade {
     private int contadorPartidasJugadas;
     private final int [] mejoresPuntuaciones;
     private final Jugador [] mejoresJugadores;
+    private Jugador nombreJugador;
 
     /**
      * Método para poder activa o desactivar la máquina
@@ -16,9 +17,9 @@ public class MaquinaArcade {
      */
     public void cambiarEstado (int opcion){
         if (opcion == 0) {
-            estadoMaquina = false;
+            this.estadoMaquina = false;
         } else if (opcion == 1){
-            estadoMaquina = true;
+            this.estadoMaquina = true;
         }
     }
 
@@ -26,7 +27,7 @@ public class MaquinaArcade {
      * Método donde se imprime el estado de la máquina
      */
     public void imprimirEstado (){
-        System.out.println(estadoMaquina);
+        System.out.println(this.estadoMaquina);
     }
 
     /**
@@ -35,23 +36,26 @@ public class MaquinaArcade {
      */
     public int nuevaPartida (){
         int puntuacion = Utils.generaNumeroAleatorio(0, 9999);
-        contadorPartidasJugadas++;
+        this.contadorPartidasJugadas++;
 
-        if(contadorPartidasJugadas % 100 == 0){
-            estadoMaquina = false;
+        if(this.contadorPartidasJugadas % 100 == 0){
+            this.estadoMaquina = false;
         }
-
-        if(puntuacion > mejoresPuntuaciones[0]){ // Comparo si la puntuacion de la partida es mayor que la puntuacion de la posición 0
-            mejoresPuntuaciones[2] = mejoresPuntuaciones[1]; // Paso la puntuacion de la posición 0 a la 1
-            mejoresPuntuaciones[1] = mejoresPuntuaciones[0]; // Paso la puntuacion de la posición 1 a la 2
-            mejoresPuntuaciones[0] = puntuacion; // La puntuacion 0 ahora pasa a ser la puntuacion de la partida
-        } else if (puntuacion > mejoresPuntuaciones[1]){ // Comparo si la puntuacion de la partida es mayor que la puntuacion de la posición 1
-            mejoresPuntuaciones[2] = mejoresPuntuaciones[1]; // Paso la puntuacion de la posición 1 a la 2
-            mejoresPuntuaciones[1] = puntuacion; // La puntuacion 1 ahora pasa a ser la puntuacion de la partida
-        } else if (puntuacion > mejoresPuntuaciones[2]) { // Comparo si la puntuacion de la partida es mayor que la puntuacion de la posición 2
-            mejoresPuntuaciones[2] = puntuacion; // La puntuacion 2 ahora pasa a ser la puntuacion de la partida
-        }
+        actualizarRanking(puntuacion);
         return puntuacion;
+    }
+
+    public void actualizarRanking (int puntuacion){
+        for (int i = 0; i < size; i++) {
+            if (puntuacion > mejoresPuntuaciones[i]) { // Si la nueva puntuación es mejor que la que hay en esta posición
+                for (int j = 2; j > i; j--) { // Desplazamos desde el final hasta i
+                    mejoresPuntuaciones[j] = mejoresPuntuaciones[j - 1]; // Bajamos una plaza la puntuación
+                    mejoresJugadores[j] = mejoresJugadores[j - 1]; // Bajamos una plaza el jugador
+                }
+                mejoresPuntuaciones[i] = puntuacion; // Inserta la mejor puntuación
+                mejoresJugadores[i] = nombreJugador; // Inserta el jugador que ha hecho la puntuación
+            }
+        }
     }
 
     /**
@@ -80,8 +84,8 @@ public class MaquinaArcade {
                 "\n Contador de partidas: " + this.contadorPartidasJugadas +
                 "\n Estado de la máquina: " + this.estadoMaquina + "\n";
 
-        for (int i = 0; i < mejoresPuntuaciones.length; i++){
-            texto += (i + 1) + "º --> " + mejoresPuntuaciones[i] + "\n";
+        for (int i = 0; i < this.mejoresPuntuaciones.length; i++){
+            texto += this.mejoresJugadores[i] + " --> " + this.mejoresPuntuaciones[i] + "\n";
         }
         return texto;
     }
