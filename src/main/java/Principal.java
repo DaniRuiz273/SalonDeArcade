@@ -11,7 +11,7 @@ public class Principal {
         SalaRecreativa ElTemploDelArcade = new SalaRecreativa();
 
         Jugador j1 = new Jugador("Messi", "0001", 20);
-        Jugador j2 = new Jugador("Cristiano", "0002", 15);
+        Jugador j2 = new Jugador("Cristiano", "0002", 10);
         Jugador j3 = new Jugador("Maradona", "0003", 30);
         ElTemploDelArcade.addJugador(j1);
         ElTemploDelArcade.addJugador(j2);
