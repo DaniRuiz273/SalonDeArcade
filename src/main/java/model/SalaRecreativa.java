@@ -21,8 +21,6 @@ public class SalaRecreativa {
                 int puntuacion = maquina.nuevaPartida();
                 jugador.incrementarNumeroPartidas();
                 System.out.println("La puntuación de la partida ha sido: " + puntuacion);
-            } else {
-                throw new Exception ("No tiene suficientes créditos para jugar una partida"); // Si buscamos un idUnico que no existe lanzará esta excepción
             }
         } else {
             throw new Exception ("La máquina esta desactivada, no se puede jugar");
@@ -88,45 +86,50 @@ public class SalaRecreativa {
     }
 
     /**
-     * Método con el que podemos buscar a un jugador de la sala con su idUnico
-     * @param idUnico Es el identificador único de cada jugador
-     * @return Devuelve el jugador si coincide con el identificador único
+     * Método con el que buscamos a un jugador buscando por su ID
+     * @param idUnico El ID único de un jugador
+     * @return Devuelve el jugador que estamos buscando
      */
-    public Jugador buscarIDJugador (String idUnico){
-        for (Jugador jugador : this.jugadores){ // Recorre cada jugador del array y lo llamamos jugador
-            if(jugador.getIdUnico().trim().equals(idUnico)){ // El idUnico del jugador lo compara con el idUnico que estamos buscando
-                return jugador; // Devuelve el jugador si coincide con el idUnico
+    public Jugador buscarIDJugador(int idUnico){
+        for (Jugador jugador : this.jugadores){
+            if(jugador.getIdUnico() == idUnico){
+                return jugador;
             }
         }
         return null;
     }
 
+
     /**
      * Método con el que añadimos un jugador en la sala
      * @param jugadorAdd Es el jugador que queremos añadir a la sala
-     * @throws Exception Si no hay más hueco para jugadores en la sala lanzará esa excepción
      */
-    public void addJugador (Jugador jugadorAdd) throws Exception {
-        if(this.capacidadJugadores < this.size){ // Comprobamos que haya capacidad en la sala
-            this.jugadores[this.capacidadJugadores] = jugadorAdd; // Si hay espacio en la sala entonces añadimos un jugador
-            this.capacidadJugadores++; // Aumenta la capacidadActual, es decir, que ahora en la sala hay un jugador más
-        }else {
-            throw new Exception ("No se pueden registrar más jugadores porque no hay más espacio"); // Cuando no hay más sitio para jugadores en la sala e intentamos añadir uno lanzará la excepción
+    public boolean addJugador (Jugador jugadorAdd) {
+        if (jugadorAdd == null) {
+            return false;
         }
+        if (capacidadJugadores >= jugadores.length) {
+            return false;
+        }
+        jugadores[capacidadJugadores] = jugadorAdd;
+        capacidadJugadores++;
+        return true;
     }
 
     /**
      * Método con el que añadimos una máquina a una sala
      * @param maquinaAdd Es la máquina que queremos añadir a la sala
-     * @throws Exception Si bo hay sitio para más máquinas en la sala lanza esa excepción
      */
-    public void addMaquina (MaquinaArcade maquinaAdd) throws Exception {
-        if(this.capacidadMaquinas < this.size){ // Comprobamos que haya capacidad en la sala
-            this.maquinas[this.capacidadMaquinas] = maquinaAdd; // Si hay espacio en la sala entonces añadimos un jugador
-            this.capacidadMaquinas++; // Aumenta la capacidadActual, es decir, que ahora en la sala hay un jugador más
-        }else {
-            throw new Exception ("No se pueden registrar más jugadores porque no hay más espacio"); // Cuando no hay más sitio para jugadores en la sala e intentamos añadir uno lanzará la excepción
+    public boolean addMaquina (MaquinaArcade maquinaAdd){
+        if(maquinaAdd == null){
+            return false;
         }
+        if(capacidadMaquinas >= maquinas.length){
+           return false;
+        }
+       maquinas[capacidadMaquinas] = maquinaAdd;
+        capacidadMaquinas++;
+        return true;
     }
 
     public String listarJugadores (){

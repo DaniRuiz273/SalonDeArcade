@@ -11,7 +11,7 @@ public class JugadorTest {
 
     @BeforeEach
     public void setup() {
-        jugador = new Jugador("Luis" , "0001", 50);
+        jugador = new Jugador("Luis" , 50);
     }
 
     @Test

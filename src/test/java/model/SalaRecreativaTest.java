@@ -14,7 +14,7 @@ public class SalaRecreativaTest {
     @BeforeEach
     public void setup() throws Exception {
         sala = new SalaRecreativa();
-        jugador = new Jugador("Mi Rey", "ID123", 50);
+        jugador = new Jugador("Mi Rey", 50);
         maquina = new MaquinaArcade("PacMan", "laberintos", 20); // Asumiendo constructor con nombre y precio
 
         sala.addJugador(jugador);

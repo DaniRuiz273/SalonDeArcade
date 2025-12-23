@@ -1,18 +1,21 @@
 package model;
 public class Jugador {
     private String nombre;
-    private String idUnico;
+    private int idUnico;
     private int creditosDisponibles;
     private int numeroPartidasJugadas;
 
-    public Jugador (String idUnico){
+    public Jugador (int idUnico){
         this.idUnico = idUnico;
     }
 
-    public Jugador (String nombre, String idUnico, int creditosDisponibles){
+    public Jugador (String nombre,  int creditosDisponibles){
         this.nombre = nombre;
-        this.idUnico = idUnico;
         this.creditosDisponibles = creditosDisponibles;
+    }
+
+    public void generaId (){
+        idUnico++;
     }
 
     /**
@@ -67,11 +70,8 @@ public class Jugador {
         this.creditosDisponibles = creditosDisponibles;
     }
 
-    public String getIdUnico() {
+    public int getIdUnico() {
         return idUnico;
     }
 
-    public void setIdUnico(String idUnico) {
-        this.idUnico = idUnico;
-    }
 }
