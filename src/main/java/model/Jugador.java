@@ -14,8 +14,11 @@ public class Jugador {
         this.creditosDisponibles = creditosDisponibles;
     }
 
+    /**
+     * Método con el que generamos un ID aleatorio
+     */
     public void generaId (){
-        idUnico++;
+        this.idUnico++;
     }
 
     /**
@@ -27,14 +30,18 @@ public class Jugador {
     }
 
     /**
-     * Método con el que restamos los créditos de un jugador
-     * @param precioPorPartida Son los créditos que cuesta una partida dependiendo de la máquina escogida
+     * Método con el que controlamos los créditos que se gastan de un jugador
+     * @param cantidad Es el número de créditos que se van a descontar de los créditos disponibles del jugador
+     * @return Devuelve true si se han restado los créditos o false si no se pueden restar los créditos
      */
-    public void gastarCreditos (int precioPorPartida){
-        if(this.creditosDisponibles > precioPorPartida) { // Comprobamos que los creditos de un jugador son suficientes para poder jugar a la máquina elegida
-            this.creditosDisponibles -= precioPorPartida; // Restamos los creditos de la partida a los creditos totales del jugador
+    public boolean gastarCreditos(int cantidad) {
+        if (cantidad <= 0 || cantidad > this.creditosDisponibles) {
+            return false;
         }
+        this.creditosDisponibles -= cantidad;
+        return true;
     }
+
 
     /**
      * Método con el incrementamos el número de partidas que un jugador ha jugado

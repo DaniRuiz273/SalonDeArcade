@@ -25,7 +25,7 @@ public class SalaRecreativaTest {
     public void testNoJugarSiSinCreditos() {
         jugador.setCreditosDisponibles(0);
         Exception exception = assertThrows(Exception.class, () -> {
-            sala.gestionarPartida(jugador, maquina);
+            sala.gestionarPartida(23, "pinball");
         });
         assertEquals("No tiene suficientes créditos para jugar una partida", exception.getMessage());
     }
@@ -34,7 +34,7 @@ public class SalaRecreativaTest {
     public void testNoJugarSiMaquinaInactiva() {
         maquina.cambiarEstado(1); // Asumiendo que existe setActiva()
         Exception exception = assertThrows(Exception.class, () -> {
-            sala.gestionarPartida(jugador, maquina);
+            sala.gestionarPartida(23, "pinball");
         });
         assertEquals("La máquina esta desactivada, no se puede jugar", exception.getMessage());
     }
@@ -42,14 +42,14 @@ public class SalaRecreativaTest {
     @Test
     public void testCreditoDisminuyeAlJugar() throws Exception {
         int saldoAntes = jugador.getCreditosDisponibles();
-        sala.gestionarPartida(jugador, maquina);
+        sala.gestionarPartida(23, "pinball");
         assertEquals(saldoAntes - maquina.getPrecioPorPartida(), jugador.getCreditosDisponibles());
     }
 
     @Test
     public void testIncrementaNumeroPartidasJugador() throws Exception {
         int partidasAntes = jugador.getNumeroPartidasJugadas();
-        sala.gestionarPartida(jugador, maquina);
+        sala.gestionarPartida(23, "pinball");
         assertEquals( 2, jugador.getNumeroPartidasJugadas());
     }
 }

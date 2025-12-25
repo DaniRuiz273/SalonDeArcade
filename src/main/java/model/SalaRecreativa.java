@@ -7,25 +7,32 @@ public class SalaRecreativa {
     private int capacidadJugadores; // Son los jugadores que hay actualmente dentro de la sala
     private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
 
-    /**
-     * Método donde podemos gestionar una partida dentro de la sala
-     * @param jugador El jugador que va a jugar la partida
-     * @param maquina La máquina donde el jugador va a jugar
-     * @throws Exception Si la máquina no está activada y el jugador no tiene créditos suficientes para jugar una partida lanzará esta excepción
-     */
-    public void gestionarPartida (Jugador jugador, MaquinaArcade maquina) throws Exception {
-        if(maquina.EstadoMaquina()){ // Primero comprobamos que la máquina esté activada
-            if(jugador.getCreditosDisponibles() >= maquina.getPrecioPorPartida()){ // Ahora comprobamos que el jugador tengo créditos suficientes para poder jugar una partida
-                jugador.gastarCreditos(maquina.getPrecioPorPartida()); // Descontamos los créditos que cuesta jugar la máquina, al jugador
 
-                int puntuacion = maquina.nuevaPartida();
-                jugador.incrementarNumeroPartidas();
-                System.out.println("La puntuación de la partida ha sido: " + puntuacion);
-            }
-        } else {
-            throw new Exception ("La máquina esta desactivada, no se puede jugar");
+    public boolean gestionarPartida(int idJugador, String nombreMaquina) {
+        Jugador jugador = buscarIDJugador(idJugador);
+        if (jugador == null) {
+            return false;
         }
+
+        MaquinaArcade maquina = buscarNombreMaquina(nombreMaquina);
+        if (maquina == null) {
+            return false;
+        }
+
+        if (!maquina.EstadoMaquina()) {
+            return false;
+        }
+
+        if (!jugador.gastarCreditos(maquina.getPrecioPorPartida())) {
+            return false;
+        }
+
+        maquina.nuevaPartida(jugador);
+        jugador.incrementarNumeroPartidas();
+
+        return true;
     }
+
 
     /**
      * Método con el que comprobamos cual es la máquina más utilizada en la sala

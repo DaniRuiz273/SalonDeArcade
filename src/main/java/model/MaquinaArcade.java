@@ -9,7 +9,6 @@ public class MaquinaArcade {
     private int contadorPartidasJugadas;
     private final int [] mejoresPuntuaciones;
     private final Jugador [] mejoresJugadores;
-    private Jugador nombreJugador;
 
     /**
      * Método para poder activa o desactivar la máquina
@@ -34,24 +33,31 @@ public class MaquinaArcade {
      * Método donde se genera la puntuación de una partida, comprueba si el numero de la partida no es multiplo de 100 y actualiza el ranking de mejores jugadores con sus respectivos puntos
      * @return Devuelve la puntuación obtenida de la partida
      */
-    public int nuevaPartida (){
+    public int nuevaPartida (Jugador jugador){
         int puntuacion = Utils.generaNumeroAleatorio(0, 9999);
         this.contadorPartidasJugadas++;
 
         if(this.contadorPartidasJugadas % 100 == 0){
             this.estadoMaquina = false;
         }
-        if(puntuacion > mejoresPuntuaciones[0]){
-            mejoresPuntuaciones[2] = mejoresPuntuaciones[1];
-            mejoresPuntuaciones[1] = mejoresPuntuaciones[0];
-            mejoresPuntuaciones[0] = puntuacion;
-        } else if (puntuacion> mejoresPuntuaciones[1]) {
-            mejoresPuntuaciones[1] = mejoresPuntuaciones[0];
-            mejoresPuntuaciones[1] = puntuacion;
-        } else if (puntuacion > mejoresPuntuaciones[2]) {
-            mejoresPuntuaciones[2] = puntuacion;
-        }
+
+        rankingMaquina(puntuacion, jugador);
         return puntuacion;
+    }
+
+    public void rankingMaquina(int puntuacion, Jugador jugador) {
+        boolean insertado = false;
+        for (int i = 0; i < mejoresPuntuaciones.length; i++) {
+            if (!insertado && puntuacion > mejoresPuntuaciones[i]) {
+                for (int j = mejoresPuntuaciones.length - 1; j > i; j--) {
+                    mejoresPuntuaciones[j] = mejoresPuntuaciones[j - 1]; // Desplaza las puntuaciones una para abajo
+                    mejoresJugadores[j] = mejoresJugadores[j - 1]; // Desplaza los jugadores una para abajo
+                }
+                mejoresPuntuaciones[i] = puntuacion;
+                mejoresJugadores[i] = jugador;
+                insertado = true;
+            }
+        }
     }
 
     /**
@@ -74,15 +80,19 @@ public class MaquinaArcade {
      * @return Devuelve el texto ya preparado
      */
     public String toString (){
-       String texto =  "\n Nombre de la máquina: " + this.nombreMaquina +
-                "\n Género de la máquina: " + this.generoMaquina +
-                "\n Precio por partida: " + this.precioPorPartida +
-                "\n Contador de partidas: " + this.contadorPartidasJugadas +
-                "\n Estado de la máquina: " + this.estadoMaquina + "\n";
+        String texto = "Nombre de la máquina: " + this.nombreMaquina +
+                    "\nGénero de la máquina: " + this.generoMaquina +
+                    "\nPrecio por partida: " + this.precioPorPartida +
+                    "\nContador de partidas: " + this.contadorPartidasJugadas +
+                    "\nEstado de la máquina: " + this.estadoMaquina +
+                    "\nRanking de mejores jugadores:\n";
 
-        for (int i = 0; i < this.mejoresPuntuaciones.length; i++){
-            texto += (i + 1) + "º --> " + this.mejoresPuntuaciones[i] + "\n";
+        for (int i = 0; i < mejoresPuntuaciones.length; i++) {  // Si el jugador o la puntuación no existen, lo saltamos
+            if (mejoresJugadores[i] != null && mejoresPuntuaciones[i] > 0) {
+                texto += (i + 1) + ". " + mejoresJugadores[i] + " --> " + mejoresPuntuaciones[i] + "\n";
+            }
         }
+
         return texto;
     }
 
