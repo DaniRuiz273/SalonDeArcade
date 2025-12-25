@@ -42,6 +42,9 @@ public class Vista {
             System.out.println("11. Mostra el ranking de una máquina concreta");
             opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 11);
             switch (opciones){
+                case 0:
+                    System.out.println("SALIENDO...");
+                    break;
                 case 1:
                     registrarJugador(ElTemploDelArcade);
                     break;
@@ -89,6 +92,10 @@ public class Vista {
         }while (opciones != 0);
     }
 
+    /**
+     * Método con el que solo mostramos solo el nombre de una máquina que está dentro de la sala
+     * @param sala Donde están guardadas las máquinas
+     */
     public static void mostrarMaquinas (SalaRecreativa sala){
         MaquinaArcade [] maquinas = sala.getMaquinasArcade();
         for(MaquinaArcade m : maquinas){
@@ -98,16 +105,24 @@ public class Vista {
         }
     }
 
+    /**
+     * Método con el que solo mostramos el nombre y la ID de los jugadores que están dentro de la sala
+     * @param sala Donde están guardadas los jugadores
+     */
     public static void mostrarJugadores(SalaRecreativa sala) {
         Jugador[] jugadores = sala.getJugadores();
         for (Jugador j : jugadores) {
             if (j != null) {
-                System.out.println("ID: " + j.getIdUnico());
+                System.out.println("ID: " + j.getIdUnico() +
+                        "\n Nombre: " + j.getNombre());
             }
         }
     }
 
-
+    /**
+     * Método con el que el usuario elige una máquina para ver su ranking
+     * @param sala Donde están guardadas las máquinas con sus rankings
+     */
     public static void mostrarRanking (SalaRecreativa sala){
         System.out.println("¿De qué máquina quieres ver su ranking?");
         mostrarMaquinas(sala);
@@ -125,6 +140,7 @@ public class Vista {
      * @param sala Donde están los jugadores y máquinas
      */
     public static void jugarUnaPartida (SalaRecreativa sala) {
+        System.out.println("Jugadores en la sala: \n");
         mostrarJugadores(sala);
         Jugador jugador  = sala.buscarIDJugador(Utils.pideEntero("Introduce la ID del jugador que quiere jugar: ", "Error, esa ID no existe"));
         if(jugador == null){
@@ -132,8 +148,19 @@ public class Vista {
             return;
         }
 
+        System.out.println("Maquinas en la sala: \n");
         mostrarMaquinas(sala);
         MaquinaArcade maquina = sala.buscarNombreMaquina(Utils.pideCadena("Introduce el nombre de la máquina a la que quieres jugar:", "Error, esa máquina no existe en la sala"));
+        int puntuacion = maquina.nuevaPartida(jugador);
+        if(puntuacion < 1000){
+            System.out.println(puntuacion + " --> Puntuación muy baja, haz el favor de jugar mejor la próxima partida");
+        } else if (puntuacion > 1000 && puntuacion <= 5000){
+            System.out.println(puntuacion + " --> Buena puntuación pero es mejorable");
+        } else if (puntuacion > 5000 && puntuacion <= 8000){
+            System.out.println(puntuacion + " --> Uffff que buena puntuación");
+        } else if (puntuacion > 8000 && puntuacion < 10000){
+            System.out.println(puntuacion + " --> Muy buena puntuación, estas hecho un máquina");
+        }
         if(maquina == null){
             System.out.println("No exite ninguna máquina con ese nombre");
             return;
@@ -176,8 +203,8 @@ public class Vista {
     }
 
     /**
-     * Método con el que el usuario introduce por consola una nueva máquina
-     * @return Devuelve una nueva máquina de la clase Máquina
+     * Método con el que registramos una nueva máquina en la sala
+     * @param sala Donde se guarda las máquinas nuevas que registremos
      */
     public static void registraMaquina (SalaRecreativa sala){
         String nombre = Utils.pideCadena("Introduce el nombre de la máquina: ", "Error, debes introducir un nombre").trim();

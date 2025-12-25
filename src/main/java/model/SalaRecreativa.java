@@ -7,7 +7,12 @@ public class SalaRecreativa {
     private int capacidadJugadores; // Son los jugadores que hay actualmente dentro de la sala
     private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
 
-
+    /**
+     * Método con el que gestionamos un partida
+     * @param idJugador ID único del jugador que va a jugar la partida
+     * @param nombreMaquina Es la máquina donde se va a jugar la partida
+     * @return Devuelve
+     */
     public boolean gestionarPartida(int idJugador, String nombreMaquina) {
         Jugador jugador = buscarIDJugador(idJugador);
         if (jugador == null) {
@@ -29,7 +34,6 @@ public class SalaRecreativa {
 
         maquina.nuevaPartida(jugador);
         jugador.incrementarNumeroPartidas();
-
         return true;
     }
 
