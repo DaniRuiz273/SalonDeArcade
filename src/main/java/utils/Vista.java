@@ -2,13 +2,9 @@ package utils;
 import model.Jugador;
 import model.MaquinaArcade;
 import model.SalaRecreativa;
-
-import java.util.Scanner;
-
 public class Vista {
     public static void llamarMenu (){
-        Scanner sc = new Scanner(System.in);
-        int opciones = 0;
+        int opciones;
         SalaRecreativa ElTemploDelArcade = new SalaRecreativa();
 
         Jugador j1 = new Jugador("Dani",  15);
@@ -53,7 +49,7 @@ public class Vista {
                     registraMaquina(ElTemploDelArcade);
                     break;
 
-                case 3: ;
+                case 3:
                     Vista.recargarCreditos(ElTemploDelArcade);
                     break;
 
@@ -92,12 +88,20 @@ public class Vista {
         }while (opciones != 0);
     }
 
+    public static void darDeBajaMaquina (SalaRecreativa sala){
+        System.out.println("¿Qué máquina quieres dar de baja?: ");
+        mostrarMaquinas(sala);
+        String nombre = Utils.pideCadena("Introduce el nombre de la máquina que vas a dar de baja: ", "Error, esa máquina no existe");
+        MaquinaArcade maquina = sala.buscarNombreMaquina(nombre);
+
+    }
+
     /**
      * Método con el que solo mostramos solo el nombre de una máquina que está dentro de la sala
      * @param sala Donde están guardadas las máquinas
      */
     public static void mostrarMaquinas (SalaRecreativa sala){
-        MaquinaArcade [] maquinas = sala.getMaquinasArcade();
+        MaquinaArcade [] maquinas = sala.getMaquinasArcade(); // Pido a la sala que me dé todas sus máquinas para poder utilizarlas
         for(MaquinaArcade m : maquinas){
             if(m != null){
                 System.out.println("Nombre: " + m.getNombreMaquina());
@@ -114,7 +118,7 @@ public class Vista {
         for (Jugador j : jugadores) {
             if (j != null) {
                 System.out.println("ID: " + j.getIdUnico() +
-                        "\n Nombre: " + j.getNombre());
+                        "\nNombre: " + j.getNombre());
             }
         }
     }
@@ -128,11 +132,18 @@ public class Vista {
         mostrarMaquinas(sala);
         String nombre  = Utils.pideCadena("Introduce el nombre de la máquina para ver su ranking: ", "Error, debes de introducir el nombre de una máquina que esté en la sala");
         MaquinaArcade maquina = sala.buscarNombreMaquina(nombre);
-        if (maquina == null) {
-            System.out.println("No existe ninguna máquina con ese nombre.");
-            return;
-        }
-        System.out.println(maquina);
+
+        System.out.println("=== RANKING " + maquina.getNombreMaquina() + " ===");
+        boolean hayDatos = false;
+        for (int i = 0; i < maquina.getMejoresPuntuaciones().length; i++) {
+            if (maquina.getMejoresJugadores()[i] != null) {
+                System.out.println((i + 1) + ". " + maquina.getMejoresJugadores()[i].getNombre() +  " - " + maquina.getMejoresPuntuaciones()[i] + " puntos");
+                hayDatos = true;
+                }
+            }
+            if (!hayDatos) {
+                System.out.println("Aun no se ha jugador ninguna partida en esta máquina");
+            }
     }
 
     /**
@@ -140,7 +151,7 @@ public class Vista {
      * @param sala Donde están los jugadores y máquinas
      */
     public static void jugarUnaPartida (SalaRecreativa sala) {
-        System.out.println("Jugadores en la sala: \n");
+        System.out.println("Jugadores en la sala: ");
         mostrarJugadores(sala);
         Jugador jugador  = sala.buscarIDJugador(Utils.pideEntero("Introduce la ID del jugador que quiere jugar: ", "Error, esa ID no existe"));
         if(jugador == null){
@@ -148,22 +159,23 @@ public class Vista {
             return;
         }
 
-        System.out.println("Maquinas en la sala: \n");
+        System.out.println("Maquinas en la sala: ");
         mostrarMaquinas(sala);
         MaquinaArcade maquina = sala.buscarNombreMaquina(Utils.pideCadena("Introduce el nombre de la máquina a la que quieres jugar:", "Error, esa máquina no existe en la sala"));
-        int puntuacion = maquina.nuevaPartida(jugador);
-        if(puntuacion < 1000){
-            System.out.println(puntuacion + " --> Puntuación muy baja, haz el favor de jugar mejor la próxima partida");
-        } else if (puntuacion > 1000 && puntuacion <= 5000){
-            System.out.println(puntuacion + " --> Buena puntuación pero es mejorable");
-        } else if (puntuacion > 5000 && puntuacion <= 8000){
-            System.out.println(puntuacion + " --> Uffff que buena puntuación");
-        } else if (puntuacion > 8000 && puntuacion < 10000){
-            System.out.println(puntuacion + " --> Muy buena puntuación, estas hecho un máquina");
-        }
-        if(maquina == null){
-            System.out.println("No exite ninguna máquina con ese nombre");
-            return;
+        if(jugador.getCreditosDisponibles() < maquina.getPrecioPorPartida()){
+            System.out.println("No tienes créditos suficientes, recargalos en la opción 3");
+        } else {
+            int puntuacion = maquina.nuevaPartida(jugador);
+            jugador.gastarCreditos(maquina.getPrecioPorPartida());
+            if(puntuacion < 1000){
+                System.out.println(puntuacion + " --> Puntuación muy baja, haz el favor de jugar mejor la próxima partida");
+            } else if (puntuacion > 1000 && puntuacion <= 5000){
+                System.out.println(puntuacion + " --> Buena puntuación pero es mejorable");
+            } else if (puntuacion > 5000 && puntuacion <= 8000){
+                System.out.println(puntuacion + " --> Uffff que buena puntuación");
+            } else if (puntuacion > 8000 && puntuacion < 10000){
+                System.out.println(puntuacion + " --> Muy buena puntuación, estas hecho un máquina");
+            }
         }
         sala.gestionarPartida(jugador.getIdUnico(), maquina.getNombreMaquina());
     }

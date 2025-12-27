@@ -1,24 +1,17 @@
 package model;
 public class Jugador {
     private String nombre;
-    private int idUnico;
+    private final int idUnico;
+    private static int idContador = 1;
     private int creditosDisponibles;
     private int numeroPartidasJugadas;
 
-    public Jugador (int idUnico){
-        this.idUnico = idUnico;
-    }
 
     public Jugador (String nombre,  int creditosDisponibles){
         this.nombre = nombre;
         this.creditosDisponibles = creditosDisponibles;
-    }
-
-    /**
-     * Método con el que generamos un ID aleatorio
-     */
-    public void generaId (){
-        this.idUnico++;
+        this.idUnico = idContador;
+        idContador++;
     }
 
     /**
@@ -32,14 +25,12 @@ public class Jugador {
     /**
      * Método con el que controlamos los créditos que se gastan de un jugador
      * @param cantidad Es el número de créditos que se van a descontar de los créditos disponibles del jugador
-     * @return Devuelve true si se han restado los créditos o false si no se pueden restar los créditos
      */
-    public boolean gastarCreditos(int cantidad) {
+    public void gastarCreditos(int cantidad) {
         if (cantidad <= 0 || cantidad > this.creditosDisponibles) {
-            return false;
+            return;
         }
         this.creditosDisponibles -= cantidad;
-        return true;
     }
 
 

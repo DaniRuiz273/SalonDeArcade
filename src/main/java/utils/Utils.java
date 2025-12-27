@@ -12,7 +12,7 @@ public class Utils {
      * @return Devuelve el entero
      */
     public static int pideEnteroEntreValores(String mensaje, String mensajeError, int numeroMin, int numeroMax){
-        int numero = 0;
+        int numero;
         do {
             numero = pideEntero(mensaje, mensajeError);
             if(numero<numeroMin||numero>numeroMax){
@@ -31,7 +31,7 @@ public class Utils {
     public static int pideEntero( String mensaje, String mensajeError){
         Scanner sc = new Scanner(System.in);
         int numero = 0;
-        boolean noHayError = true;
+        boolean noHayError;
         do {
             System.out.println(mensaje);
             try {

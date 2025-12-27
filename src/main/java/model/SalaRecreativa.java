@@ -1,5 +1,4 @@
 package model;
-import utils.Utils;
 public class SalaRecreativa {
     private final int size = 5;
     private final Jugador [] jugadores; // Array donde se guardan los jugadores de la sala
@@ -9,34 +8,30 @@ public class SalaRecreativa {
 
     /**
      * Método con el que gestionamos un partida
-     * @param idJugador ID único del jugador que va a jugar la partida
+     *
+     * @param idJugador     Id único del jugador que va a jugar la partida
      * @param nombreMaquina Es la máquina donde se va a jugar la partida
-     * @return Devuelve
      */
-    public boolean gestionarPartida(int idJugador, String nombreMaquina) {
+    public void gestionarPartida(int idJugador, String nombreMaquina) {
         Jugador jugador = buscarIDJugador(idJugador);
         if (jugador == null) {
-            return false;
+            return;
         }
 
         MaquinaArcade maquina = buscarNombreMaquina(nombreMaquina);
         if (maquina == null) {
-            return false;
+            return;
         }
 
         if (!maquina.EstadoMaquina()) {
-            return false;
+            return;
         }
 
-        if (!jugador.gastarCreditos(maquina.getPrecioPorPartida())) {
-            return false;
+        if (jugador.getCreditosDisponibles() < maquina.getPrecioPorPartida()) {
+            return;
         }
-
-        maquina.nuevaPartida(jugador);
         jugador.incrementarNumeroPartidas();
-        return true;
     }
-
 
     /**
      * Método con el que comprobamos cual es la máquina más utilizada en la sala
@@ -66,17 +61,14 @@ public class SalaRecreativa {
         return masActivo;
     }
 
-
     /**
      * Método con el que solo imprimimos por pantalla las máquinas que están activas dentro de la sala
      */
     public String listarMaquinasActivas (){
         String texto = "Máquinas activas: ";
-        boolean estaActiva = false;
         for(int i = 0; i < this.capacidadMaquinas; i++){
             if(this.maquinas[i].EstadoMaquina()){
                 texto += this.maquinas[i] + "\n";
-                estaActiva = true;
             }
         }
         return texto;
@@ -119,11 +111,11 @@ public class SalaRecreativa {
         if (jugadorAdd == null) {
             return false;
         }
-        if (capacidadJugadores >= jugadores.length) {
+        if (this.capacidadJugadores >= this.jugadores.length) {
             return false;
         }
-        jugadores[capacidadJugadores] = jugadorAdd;
-        capacidadJugadores++;
+        this.jugadores[this.capacidadJugadores] = jugadorAdd;
+        this.capacidadJugadores++;
         return true;
     }
 
@@ -135,11 +127,11 @@ public class SalaRecreativa {
         if(maquinaAdd == null){
             return false;
         }
-        if(capacidadMaquinas >= maquinas.length){
+        if(this.capacidadMaquinas >= this.maquinas.length){
            return false;
         }
-       maquinas[capacidadMaquinas] = maquinaAdd;
-        capacidadMaquinas++;
+        this.maquinas[this.capacidadMaquinas] = maquinaAdd;
+        this.capacidadMaquinas++;
         return true;
     }
 
