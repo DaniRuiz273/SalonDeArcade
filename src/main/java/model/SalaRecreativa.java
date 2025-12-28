@@ -7,30 +7,74 @@ public class SalaRecreativa {
     private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
 
     /**
+     * Método con el que damos de baja a un jugador
+     * @param nombreJugador Jugador que vamos a dar de baja
+     * @return True si se ha dado de baja y false si no
+     */
+    public boolean darDeBajaJugador (String nombreJugador){
+        for (int i = 0; i < capacidadJugadores; i++){
+            if (jugadores[i].getNombre().equalsIgnoreCase(nombreJugador)){
+                for (int j = i; j < capacidadJugadores - 1; j++){
+                    jugadores[i] = jugadores[i + 1];
+                }
+                jugadores[capacidadJugadores -1] = null;
+                capacidadJugadores--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Método con el que damos de baja a una máquina
+     * @param nombreMaquina Nombre de la máquina que vamos a dar de baja
+     * @return Devuelve true si se ha dado de baja la máquina y false si no
+     */
+    public boolean darDeBajaMaquina(String nombreMaquina) {
+        for (int i = 0; i < capacidadMaquinas; i++) {
+            if (maquinas[i].getNombreMaquina().equalsIgnoreCase(nombreMaquina)) {
+                for (int j = i; j < capacidadMaquinas - 1; j++) { // Desplazamos las máquinas
+                    maquinas[j] = maquinas[j + 1];
+                }
+                maquinas[capacidadMaquinas - 1] = null;
+                capacidadMaquinas--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * Método con el que gestionamos un partida
      *
      * @param idJugador     Id único del jugador que va a jugar la partida
      * @param nombreMaquina Es la máquina donde se va a jugar la partida
      */
-    public void gestionarPartida(int idJugador, String nombreMaquina) {
+    public int gestionarPartida(int idJugador, String nombreMaquina) {
         Jugador jugador = buscarIDJugador(idJugador);
         if (jugador == null) {
-            return;
+            return -1;
         }
 
         MaquinaArcade maquina = buscarNombreMaquina(nombreMaquina);
         if (maquina == null) {
-            return;
+            return -1;
         }
 
         if (!maquina.EstadoMaquina()) {
-            return;
+            return -1;
         }
 
         if (jugador.getCreditosDisponibles() < maquina.getPrecioPorPartida()) {
-            return;
+            return -1;
+        } else {
+            jugador.gastarCreditos(maquina.getPrecioPorPartida());
         }
+
+        int puntuacion = maquina.nuevaPartida(jugador);
         jugador.incrementarNumeroPartidas();
+        return puntuacion;
     }
 
     /**
@@ -80,8 +124,8 @@ public class SalaRecreativa {
      * @return Devuelve los atributos de la máquina si coincide con su nombre
      */
     public MaquinaArcade buscarNombreMaquina (String nombre) {
-        for (MaquinaArcade maquina : this.maquinas){ // Recorre cada máquina del array y lo llamamos máquina
-            if (maquina != null && maquina.getNombreMaquina().trim().equalsIgnoreCase(nombre.trim())){ // El nombre de la máquina lo compara con el nombre de la máquina que estamos buscando
+        for (MaquinaArcade maquina : this.maquinas){ // Recorre cada máquina del array y llamamos máquina a cada elemento del array
+            if (maquina != null && maquina.getNombreMaquina().trim().equalsIgnoreCase(nombre.trim())){ // Ahora comparamos la máquina del array con el nombre de la máquina que ha escrito el usuario por pantalla, si no es igual pasa a la siguiente máquina
                 return maquina; // Devuelve la máquina si coincide con su nombre
             }
         }
@@ -160,7 +204,7 @@ public class SalaRecreativa {
     }
 
     public String toString() {
-        String texto = "Jugadores en la sala: ";
+        String texto = "--- JUGADORES ---";
         if(this.capacidadJugadores == 0){
             texto += "No hay jugadores en la sala";
         } else {
@@ -169,7 +213,7 @@ public class SalaRecreativa {
             }
         }
 
-        texto += "Maquinas en la sala : \n";
+        texto += "--- MÁQUINAS ---\n";
         if(this.capacidadMaquinas == 0){
             texto += "No hay máquinas en la sala";
         } else {
