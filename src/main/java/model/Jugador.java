@@ -16,11 +16,21 @@ public class Jugador {
 
     /**
      * Método con el que sumamos más creditos al jugador
-     * @param sumaCreditos El número de creditos que queremos sumar a los créditos totales
+     * @param cantidad El número de creditos que queremos sumar a los créditos totales
      */
-    public void recargarCreditos (int sumaCreditos) {
-        this.creditosDisponibles += sumaCreditos; // Sumamos los creditos introducidos por el usuario al total de creditos del jugador
+    public boolean recargarCreditos(int cantidad) {
+        if (cantidad <= 0) {
+            return false;
+        }
+
+        if (cantidad % 10 != 0 && cantidad % 10 != 5) {
+            return false;
+        }
+
+        this.creditosDisponibles += cantidad;
+        return true;
     }
+
 
     /**
      * Método con el que controlamos los créditos que se gastan de un jugador
@@ -52,10 +62,6 @@ public class Jugador {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getNumeroPartidasJugadas() {
         return numeroPartidasJugadas;
     }
@@ -72,4 +78,7 @@ public class Jugador {
         return idUnico;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

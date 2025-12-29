@@ -7,18 +7,51 @@ public class SalaRecreativa {
     private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
 
     /**
+     * Método con el que podemos editar el nombre de un jugador ya existente
+     * @param idUnico El ID para buscar el jugador que queremos editar
+     * @param nombreNuevo El nuevo nombre del jugador introducido por el usuario
+     * @return Devuelve True si se ha cambiado el nombre del jugador y False si no existe el jugador
+     */
+    public boolean editarJugador (int idUnico, String nombreNuevo){
+        Jugador jugador = buscarIDJugador(idUnico);
+        if(jugador == null){
+            return false;
+        }
+        jugador.setNombre(nombreNuevo);
+        return true;
+    }
+    /**
+     * Método con el que podemos editar el nombre, genero y precio por partida de una máquina
+     * @param nombreActual El nombre que tiene la máquina actualmente
+     * @param nombreNuevo El nuevo nombre de la máquina introducido por el usuario
+     * @param generoNuevo El nuevo género de la máquina introducido por el usuario
+     * @param precioPorParidaNuevo El nuevo precio por partida de la máquina introducido por el usuario
+     * @return Devuelve True si se ha cambiado los valores y False si no existe máquina
+     */
+    public boolean editarMaquina (String nombreActual, String nombreNuevo, String generoNuevo, int precioPorParidaNuevo){
+        MaquinaArcade maquina = buscarNombreMaquina(nombreActual);
+        if(maquina == null){
+            return false;
+        }
+        maquina.setNombreMaquina(nombreNuevo);
+        maquina.setGeneroMaquina(generoNuevo);
+        maquina.setPrecioPorPartida(precioPorParidaNuevo);
+        return true;
+    }
+
+    /**
      * Método con el que damos de baja a un jugador
      * @param nombreJugador Jugador que vamos a dar de baja
      * @return True si se ha dado de baja y false si no
      */
     public boolean darDeBajaJugador (String nombreJugador){
-        for (int i = 0; i < capacidadJugadores; i++){
-            if (jugadores[i].getNombre().equalsIgnoreCase(nombreJugador)){
-                for (int j = i; j < capacidadJugadores - 1; j++){
-                    jugadores[i] = jugadores[i + 1];
+        for (int i = 0; i < capacidadJugadores; i++){ // Recorremos solo las posiciones que están ocupadas
+            if (jugadores[i].getNombre().equalsIgnoreCase(nombreJugador)){ // Comparamos los nombres de los jugadores que están dentro del array con el nombre que introduce el usuario
+                for (int j = i; j < capacidadJugadores - 1; j++){ // Movemos los jugadores
+                    jugadores[j] = jugadores[j + 1]; // Desplazamos los jugadores una posición a la izquierda
                 }
-                jugadores[capacidadJugadores -1] = null;
-                capacidadJugadores--;
+                jugadores[capacidadJugadores -1] = null; // Ahora la última posición queda duplicada por lo que hacemos que se quede en null directamente
+                capacidadJugadores--; // Ponemos que ahora hay un jugador menos en el array, pero se queda con el mismo tamaño
                 return true;
             }
         }
@@ -31,13 +64,13 @@ public class SalaRecreativa {
      * @return Devuelve true si se ha dado de baja la máquina y false si no
      */
     public boolean darDeBajaMaquina(String nombreMaquina) {
-        for (int i = 0; i < capacidadMaquinas; i++) {
-            if (maquinas[i].getNombreMaquina().equalsIgnoreCase(nombreMaquina)) {
-                for (int j = i; j < capacidadMaquinas - 1; j++) { // Desplazamos las máquinas
-                    maquinas[j] = maquinas[j + 1];
+        for (int i = 0; i < capacidadMaquinas; i++) { // Recorremos solo las posiciones que están ocupadas
+            if (maquinas[i].getNombreMaquina().equalsIgnoreCase(nombreMaquina)) { // Comparamos los nombres de las máquinas que están dentro del array con el nombre introducido por el usuario
+                for (int j = i; j < capacidadMaquinas - 1; j++) { // Movemos las máquinas
+                    maquinas[j] = maquinas[j + 1]; // Movemos a las máquinas una posición a la izquierda
                 }
-                maquinas[capacidadMaquinas - 1] = null;
-                capacidadMaquinas--;
+                maquinas[capacidadMaquinas - 1] = null; // Ahora como la última posición queda duplicada hacemos que esté en null directamente
+                capacidadMaquinas--; // Ahora hay una máquina menos en al array, pero su tamaño sigue siendo el mismo
                 return true;
             }
         }
@@ -47,8 +80,7 @@ public class SalaRecreativa {
 
     /**
      * Método con el que gestionamos un partida
-     *
-     * @param idJugador     Id único del jugador que va a jugar la partida
+     * @param idJugador Id único del jugador que va a jugar la partida
      * @param nombreMaquina Es la máquina donde se va a jugar la partida
      */
     public int gestionarPartida(int idJugador, String nombreMaquina) {

@@ -38,7 +38,9 @@ public class Vista {
             System.out.println("11. Mostra el ranking de una máquina concreta");
             System.out.println("12. Dar de baja una máquina");
             System.out.println("13. Dar de baja a un jugador");
-            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 13);
+            System.out.println("14. Editar una máquina");
+            System.out.println("15. Editar el nombre de un jugador");
+            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 15);
             switch (opciones){
                 case 0:
                     System.out.println("SALIENDO...");
@@ -93,12 +95,71 @@ public class Vista {
                 case 13:
                     darDeBajaJugador(ElTemploDelArcade);
                     break;
+
+                case 14:
+                    editarMaquina(ElTemploDelArcade);
+                    break;
+
+                case 15:
+                    editarJugador(ElTemploDelArcade);
+                    break;
             }
         }while (opciones != 0);
     }
 
     /**
-     * Método con el que damos de baja a un jugador
+     * Método con el que imprimimos por pantalla la manera de editar el nombre de un jugador que ya estaba en la sala
+     * @param sala Donde se encuentran los jugadores que podemos editar
+     */
+    public static void editarJugador (SalaRecreativa sala){
+        System.out.println("Jugadores en la sala: ");
+        mostrarJugadores(sala);
+
+        int idUnico = Utils.pideEntero("Introduce el ID del jugador que vas a editar: ", "Error, debes de introducir el ID de uno de los jugadores anteriores");
+        Jugador jugador = sala.buscarIDJugador(idUnico);
+        if(jugador == null){
+            System.out.println("El jugador que has introducido no existe");
+        }
+
+        String nombreNuevo = Utils.pideCadena("Introduce el nuevo nombre del jugador: ", "Error");
+
+        if(sala.editarJugador(idUnico, nombreNuevo)){
+            System.out.println("El jugador ha sido editado correctamente");
+        } else {
+            System.out.println("No se ha podido editar el jugador, inténtelo de nuevo");
+        }
+    }
+
+    //TODO: Hacer que el precio por partida acabe en 0 o 5
+    /**
+     * Método con el que imprimimos por pantalla como editar a una máquina
+     * @param sala Donde se encuentran las máquinas que podemos editar
+     */
+    public static void editarMaquina (SalaRecreativa sala){
+        System.out.println("Máquinas en la sala: ");
+        mostrarMaquinas(sala);
+
+        String nombre = Utils.pideCadena("Introduce el nombre de la máquina que quieres editar: ", "Error, debes de introducir el nombre de una de las máquinas anteriores");
+
+        MaquinaArcade maquina = sala.buscarNombreMaquina(nombre);
+        if(maquina == null){
+            System.out.println("La máquina no existe, prueba con otro nombre");
+            return;
+        }
+
+        String nombreNuevo = Utils.pideCadena("¿Cuál es el nuevo nombre de la máquina?: ", "Error");
+        String generoNuevo = Utils.pideCadena("¿Cuál es el nuevo género de la máquina?: ", "Error");
+        int precioPorPartidaNuevo = Utils.pideEntero("¿Cuál va a ser el nuevo precio de la partida de la máquina?: ", "Error");
+
+        if(sala.editarMaquina(nombre, nombreNuevo, generoNuevo, precioPorPartidaNuevo)){
+            System.out.println("La máquina " + nombre + " ha sido editada correctamente");
+        } else {
+            System.out.println("No ha sido posible editar la máquina");
+        }
+    }
+
+    /**
+     * Método con el que imprimimos por pantalla como dar de baja a un jugador
      * @param sala Donde se encuentran los jugadores que queremos dar de baja
      */
     public static void darDeBajaJugador (SalaRecreativa sala){
@@ -114,7 +175,7 @@ public class Vista {
     }
 
     /**
-     * Método con el que damos de baja a una máquina
+     * Método con el que imprimimos por pantalla como dar de baja una máquina
      * @param sala Sala donde se encuentran las máquinas que queremos dar de baja
      */
     public static void darDeBajaMaquina (SalaRecreativa sala){
@@ -180,7 +241,7 @@ public class Vista {
     }
 
     /**
-     * Método con el que podemos jugar una partida a través del ID del jugador y la máquina a la que queremos jugar
+     * Método con el que imprimimos por pantalla como poder jugar una partida
      * @param sala Donde están los jugadores y máquinas
      */
     public static void jugarUnaPartida (SalaRecreativa sala) {
@@ -230,11 +291,11 @@ public class Vista {
     }
 
     /**
-     * Método con el que el usuario introduce por consola un nuevo jugador
+     * Método con el que imprimimos por pantalla como poder registrar a un nuevo jugador
      */
     public static void registrarJugador (SalaRecreativa sala) {
-        String nombre = Utils.pideCadena("Introduce el nombre del jugador: ", "Error, debes introducir un nombre").trim();
-        int creditosDisponibles = Utils.pideEntero("Introduce los créditos que tiene el jugador: ", "Error, debes de introducir un entero.");
+        String nombre = Utils.pideCadena("Introduce el nombre del jugador: ", "Error, debes introducir un nombre de una persona").trim();
+        int creditosDisponibles = Utils.pideEntero("Introduce los créditos que tiene el jugador: ", "Error, debes de introducir un numero.");
         if (nombre.isEmpty()) {
             System.out.println("El nombre no puede estar vacío.");
             return;
@@ -249,7 +310,7 @@ public class Vista {
     }
 
     /**
-     * Método con el que registramos una nueva máquina en la sala
+     * Método con el que imprimimos por pantalla como registrar una nueva máquina
      * @param sala Donde se guarda las máquinas nuevas que registremos
      */
     public static void registraMaquina (SalaRecreativa sala){
@@ -273,7 +334,7 @@ public class Vista {
     }
 
     /**
-     * Método con el que recargamos los creditos de un jugador, donde el usuario elige al jugador que quiere recargarle los créditos y cuantos va a añadir
+     * Método con el que imprimimos por pantalla como poder recargar los créditos de un jugador
      * @param sala Sala donde está el jugador al que queremos recargarle los créditos
      */
     public static void recargarCreditos(SalaRecreativa sala){
@@ -286,7 +347,10 @@ public class Vista {
             return;
         }
         int cantidad = Utils.pideEntero("¿Cuántos créditos quieres recargar?: ", "Error, debes de introducir un entero");
-        jugador.recargarCreditos(cantidad);
-        System.out.println("Créditos recargados. Ahora tiene: " + jugador.getCreditosDisponibles());
+        if(jugador.recargarCreditos(cantidad)){
+            System.out.println("Créditos recargados correctamente, ahora tiene: " + jugador.getCreditosDisponibles());
+        } else {
+            System.out.println("Cantidad inválida, debes de introducir un número acabado en 0 o 5");
+        }
     }
 }

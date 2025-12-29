@@ -2,9 +2,9 @@ package model;
 import utils.Utils;
 public class MaquinaArcade {
     final int size = 3;
-    private final String nombreMaquina;
-    private final String generoMaquina;
-    private final int precioPorPartida;
+    private String nombreMaquina;
+    private String generoMaquina;
+    private int precioPorPartida;
     private boolean estadoMaquina;
     private int contadorPartidasJugadas;
     private final int [] mejoresPuntuaciones;
@@ -118,5 +118,17 @@ public class MaquinaArcade {
 
     public Jugador[] getMejoresJugadores() {
         return mejoresJugadores;
+    }
+
+    public void setNombreMaquina(String nombreMaquina) {
+        this.nombreMaquina = nombreMaquina;
+    }
+
+    public void setGeneroMaquina(String generoMaquina) {
+        this.generoMaquina = generoMaquina;
+    }
+
+    public void setPrecioPorPartida(int precioPorPartida) {
+        this.precioPorPartida = precioPorPartida;
     }
 }
