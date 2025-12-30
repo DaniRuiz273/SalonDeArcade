@@ -129,6 +129,9 @@ public class MaquinaArcade {
     }
 
     public void setPrecioPorPartida(int precioPorPartida) {
+        if(!Utils.precioValido(precioPorPartida)){
+            return;
+        }
         this.precioPorPartida = precioPorPartida;
     }
 }

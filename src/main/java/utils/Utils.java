@@ -4,6 +4,34 @@ import java.util.Scanner;
 public class Utils {
 
     /**
+     * Método con el que validamos que los créditos siempre acaben en 0 o en 5
+     * @param precio Los créditos que introduce el usuario
+     * @return Devuelve True si el precio introducido es válido y False si no lo es
+     */
+    public static boolean precioValido (int precio){
+        return precio > 0 && (precio % 10 == 0 || precio % 10 == 5);
+    }
+
+    /**
+     * Método con el que comprobamos que en una cadena no se haya introducido numeros
+     * @param cadena Cadena que queremos validar
+     * @return Devuelve True si se ha validado correctamente y False si no se puede validar
+     */
+    public static boolean cadenaValida(String cadena) {
+        if (cadena == null || cadena.trim().isEmpty()) { // Evitamos nombre vacíos o solo con espacios
+            return false;
+        }
+        for (int i = 0; i < cadena.length(); i++) { // Recorremos el nombre letra por letra
+            char c = cadena.charAt(i); // Cogemos el carácter en la posición i
+            if (!Character.isLetter(c) && c != ' ') { // Aquí devuelve True si es una letra. También permite los espacio entre nombres
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
      * Método con el que pedimos un entero entre dos valores
      * @param mensaje Mensaje donde indica que introduzcas un entero entre los dos valores
      * @param mensajeError Si introduces otra cosa que no sea un entero entre los dos valores

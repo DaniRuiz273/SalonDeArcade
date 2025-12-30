@@ -33,6 +33,12 @@ public class SalaRecreativa {
         if(maquina == null){
             return false;
         }
+
+        int precio = maquina.getPrecioPorPartida();
+        if (precio <= 0 || (precio % 10 != 0 && precio % 10 != 5)) { // Comprobamos que el precio introducido por el usuario siempre acabe en 0 o en 5
+            return false;
+        }
+
         maquina.setNombreMaquina(nombreNuevo);
         maquina.setGeneroMaquina(generoNuevo);
         maquina.setPrecioPorPartida(precioPorParidaNuevo);
@@ -203,6 +209,12 @@ public class SalaRecreativa {
         if(maquinaAdd == null){
             return false;
         }
+
+        int precio = maquinaAdd.getPrecioPorPartida();
+        if (precio <= 0 || (precio % 10 != 0 && precio % 10 != 5)) {
+            return false;
+        }
+
         if(this.capacidadMaquinas >= this.maquinas.length){
            return false;
         }
