@@ -6,12 +6,6 @@ public class Jugador {
     private int creditosDisponibles;
     private int numeroPartidasJugadas;
 
-    public void creditosExtra (int cantidad) {
-        if(cantidad > 0){
-            creditosDisponibles *= cantidad;
-        }
-    }
-
     public Jugador (String nombre,  int creditosDisponibles){
         this.nombre = nombre;
         this.creditosDisponibles = creditosDisponibles;
