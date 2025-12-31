@@ -40,7 +40,8 @@ public class Vista {
             System.out.println("13. Dar de baja a un jugador");
             System.out.println("14. Editar una máquina");
             System.out.println("15. Editar el nombre de un jugador");
-            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 15);
+            System.out.println("16. Estadísticas generales de la sala");
+            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 16);
             switch (opciones){
                 case 0:
                     System.out.println("SALIENDO...");
@@ -104,10 +105,26 @@ public class Vista {
                 case 15:
                     editarJugador(ElTemploDelArcade);
                     break;
+
+                case 16:
+                    mostrarEstadisticas(ElTemploDelArcade);
+                    break;
             }
         }while (opciones != 0);
     }
-    // TODO: Hacer que al registrar un nuevo jugador o maquina no pueda poner el mismo nombre si ya existe en la sala
+
+    /**
+     * Método con el que imprimimos por pantalla las estadísticas generales de la sala
+     * @param sala Donde se encuentran los datos necesarios para las estadísticas
+     */
+    public static void mostrarEstadisticas (SalaRecreativa sala){
+        System.out.println("--- ESTADÍSTICAS DEL TEMPLO DEL ARCADE ---");
+        System.out.println("---------------------------------------");
+        System.out.println("Jugadores registrados: " + sala.getCapacidadJugadores());
+        System.out.println("Máquinas registradas: " + sala.getCapacidadMaquinas());
+        System.out.println("Partidas totales jugadas: " + sala.getTotalPartidas());
+    }
+
     /**
      * Método con el que imprimimos por pantalla el jugador más activo de la sala
      * @param sala Lugar donde se encuentran los jugadores
@@ -286,6 +303,10 @@ public class Vista {
      * @param sala Donde están los jugadores y máquinas
      */
     public static void jugarUnaPartida (SalaRecreativa sala) {
+        if(sala.getCapacidadJugadores() == 0){
+            System.out.println("No hay jugadores en la sala, registra uno antes de jugar");
+        }
+
         System.out.println("Jugadores en la sala: ");
         mostrarJugadores(sala);
         Jugador jugador  = sala.buscarIDJugador(Utils.pideEntero("Introduce la ID del jugador que quiere jugar: ", "Error, esa ID no existe"));
@@ -344,11 +365,18 @@ public class Vista {
             System.out.println("Este nombre no es válido, solo puedes poner letras");
             return;
         }
+
+        if(sala.existeNombreJugador(nombre)){
+            System.out.println("El nombre de este jugador ya está en uso, escoge otro");
+            return;
+        }
+
         int creditosDisponibles = Utils.pideEntero("Introduce los créditos que va a tener el jugador: ", "Error, debes de introducir un numero.");
         if (!Utils.precioValido(creditosDisponibles)) {
             System.out.println("No puedes poner esa cantidad de créditos, los créditos deben de acabar en 0 o en 5");
             return;
         }
+
         Jugador nuevoJugador = new Jugador(nombre, creditosDisponibles);
         boolean add = sala.addJugador(nuevoJugador);
         if (add) {
@@ -366,6 +394,11 @@ public class Vista {
         String nombre = Utils.pideCadena("Introduce el nombre de la máquina: ", "Error, debes introducir un nombre").trim();
         if (!Utils.cadenaValida(nombre)) {
             System.out.println("Este nombre no es válido, solo puedes poner letras");
+            return;
+        }
+
+        if(sala.existeNombreMaquina(nombre)){
+            System.out.println("Este nombre ya está en uso, escoge otro");
             return;
         }
 

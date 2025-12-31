@@ -86,7 +86,7 @@ public class MaquinaArcade {
                     "\nRanking de mejores jugadores:\n";
 
         for (int i = 0; i < this.mejoresPuntuaciones.length; i++) {
-            texto += (i + 1) + ". ";
+            texto  += (i + 1) + ". ";
             if (this.mejoresJugadores[i] != null) {
                 texto += this.mejoresJugadores[i].getNombre() + " - " + this.mejoresPuntuaciones[i] + " puntos\n";
             } else {

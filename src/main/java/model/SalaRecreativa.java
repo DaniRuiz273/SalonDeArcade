@@ -5,6 +5,35 @@ public class SalaRecreativa {
     private final MaquinaArcade [] maquinas; // Array donde se guardan las máquinas de la sala
     private int capacidadJugadores; // Son los jugadores que hay actualmente dentro de la sala
     private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
+    private int totalPartidas; // Número total de partidas de todas las máquinas
+
+    /**
+     * Método con el que comprobamos que el nombre que introducimos por consola no esté repetido en la sala
+     * @param nombre Nombre de la máquina que vamos a comprobar si está o no repetido
+     * @return True si el nombre está repetido y False si no lo está
+     */
+    public boolean existeNombreMaquina (String nombre){
+        for(int i = 0; i < capacidadMaquinas; i++){
+            if(maquinas[i].getNombreMaquina().equalsIgnoreCase(nombre)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Método con el que comprobamos que el nombre que introducimos por consola no esté repetido en la sala
+     * @param nombre Nombre del jugador que comprobamos si está dentro de la sala
+     * @return True si el nombre ya está dentro de la sala y False si no lo está
+     */
+    public boolean existeNombreJugador (String nombre){
+        for(int i = 0; i < capacidadJugadores; i++){
+           if(jugadores[i].getNombre().equalsIgnoreCase(nombre)){
+               return true;
+           }
+        }
+        return false;
+    }
 
     /**
      * Método con el que podemos editar el nombre de un jugador ya existente
@@ -90,28 +119,29 @@ public class SalaRecreativa {
      * @param nombreMaquina Es la máquina donde se va a jugar la partida
      */
     public int gestionarPartida(int idJugador, String nombreMaquina) {
-        Jugador jugador = buscarIDJugador(idJugador);
+        Jugador jugador = buscarIDJugador(idJugador); // Buscamos el ID del jugador que va a jugar la partida
         if (jugador == null) {
             return -1;
         }
 
-        MaquinaArcade maquina = buscarNombreMaquina(nombreMaquina);
+        MaquinaArcade maquina = buscarNombreMaquina(nombreMaquina); // Comprobamos que el nombre de la máquina existe
         if (maquina == null) {
             return -1;
         }
 
-        if (!maquina.EstadoMaquina()) {
+        if (!maquina.EstadoMaquina()) { // Comprobamos que la máquia esté activada
             return -1;
         }
 
-        if (jugador.getCreditosDisponibles() < maquina.getPrecioPorPartida()) {
+        if (jugador.getCreditosDisponibles() < maquina.getPrecioPorPartida()) { // Comprobamos que el jugador tenga créditos suficientes para jugar una partida
             return -1;
         } else {
-            jugador.gastarCreditos(maquina.getPrecioPorPartida());
+            jugador.gastarCreditos(maquina.getPrecioPorPartida()); // Restamos los créditos de la partida al jugador
         }
 
-        int puntuacion = maquina.nuevaPartida(jugador);
-        jugador.incrementarNumeroPartidas();
+        int puntuacion = maquina.nuevaPartida(jugador); // Obtenemos la puntuación de la partida
+        jugador.incrementarNumeroPartidas();// Incrementamos el número de partidas del jugador
+        totalPartidas++; // Incrementamos el número de partidas totales
         return puntuacion;
     }
 
@@ -275,6 +305,7 @@ public class SalaRecreativa {
 
         this.capacidadJugadores = 0;
         this.capacidadMaquinas = 0;
+        this.totalPartidas = 0;
     }
 
     public MaquinaArcade[] getMaquinasArcade() {
@@ -283,5 +314,17 @@ public class SalaRecreativa {
 
     public Jugador[] getJugadores() {
         return jugadores;
+    }
+
+    public int getCapacidadJugadores() {
+        return capacidadJugadores;
+    }
+
+    public int getTotalPartidas() {
+        return totalPartidas;
+    }
+
+    public int getCapacidadMaquinas() {
+        return capacidadMaquinas;
     }
 }
