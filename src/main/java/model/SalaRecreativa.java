@@ -5,7 +5,6 @@ public class SalaRecreativa {
     private final MaquinaArcade [] maquinas; // Array donde se guardan las máquinas de la sala
     private int capacidadJugadores; // Son los jugadores que hay actualmente dentro de la sala
     private int capacidadMaquinas; // Son las máquinas que hay actualmente dentro de la sala
-    private int totalPartidas; // Número total de partidas de todas las máquinas
 
     /**
      * Método con el que comprobamos que el nombre que introducimos por consola no esté repetido en la sala
@@ -141,7 +140,6 @@ public class SalaRecreativa {
 
         int puntuacion = maquina.nuevaPartida(jugador); // Obtenemos la puntuación de la partida
         jugador.incrementarNumeroPartidas();// Incrementamos el número de partidas del jugador
-        totalPartidas++; // Incrementamos el número de partidas totales
         return puntuacion;
     }
 
@@ -305,7 +303,6 @@ public class SalaRecreativa {
 
         this.capacidadJugadores = 0;
         this.capacidadMaquinas = 0;
-        this.totalPartidas = 0;
     }
 
     public MaquinaArcade[] getMaquinasArcade() {
@@ -318,13 +315,5 @@ public class SalaRecreativa {
 
     public int getCapacidadJugadores() {
         return capacidadJugadores;
-    }
-
-    public int getTotalPartidas() {
-        return totalPartidas;
-    }
-
-    public int getCapacidadMaquinas() {
-        return capacidadMaquinas;
     }
 }

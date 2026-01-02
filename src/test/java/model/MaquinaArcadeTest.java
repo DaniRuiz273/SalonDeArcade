@@ -1,54 +1,46 @@
 package model;
-
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.MaquinaArcade;
-
 public class MaquinaArcadeTest {
 
-    MaquinaArcade maquina;
-    /*
-    @BeforeEach
-    public void setup() {
-        maquina = new MaquinaArcade("PacMan", "Arcade", 10);
-        maquina.setEstadoMaquina(true);
+    @Test
+    void jugarPartida_incrementaContador() {
+        MaquinaArcade m = new MaquinaArcade("Pacman", "Arcade", 5);
+        Jugador j = new Jugador("Juan", 5);
+
+        m.nuevaPartida(j);
+
+        assertEquals(1, m.getContadorPartidasJugadas());
     }
 
     @Test
-    public void testJugarIncrementaContador() {
-        int contadorAntes = maquina.getContadorPartidasJugadas();
-        maquina.nuevaPartida(); // ya no pasa jugador
-        assertEquals(contadorAntes + 1, maquina.getContadorPartidasJugadas());
+    void ranking_conCuatroPartidas() {
+        MaquinaArcade m = new MaquinaArcade("Pacman", "Arcade", 5);
+        Jugador j = new Jugador("Juan", 50);
+
+        int p1 = m.nuevaPartida(j);
+        int p2 = m.nuevaPartida(j);
+        int p3 = m.nuevaPartida(j);
+        int p4 = m.nuevaPartida(j);
+
+        int[] ranking = m.rankingMaquina(j);
+
+        int mejor = Math.max(Math.max(p1, p2), Math.max(p3, p4));
+        assertEquals(mejor, ranking[0]);
+
+        int peor = Math.min(Math.min(p1, p2), Math.min(p3, p4));
+        assertFalse(ranking[0] == peor || ranking[1] == peor || ranking[2] == peor);
     }
 
+
     @Test
-    public void testDesactivarMaquinaAlcanzar100Partidas() {
-        maquina.setEstadoMaquina(true);
-        for (int i = 0; i < 99; i++) {
-            maquina.nuevaPartida();
+    void alLlegarACienPartidas_laMaquinaSeDesactiva() {
+        MaquinaArcade m = new MaquinaArcade("Pacman", "Arcade", 5);
+        Jugador j = new Jugador("Juan", 5);
+
+        for (int i = 0; i < 100; i++) {
+            m.nuevaPartida(j);
         }
-        assertTrue(maquina.EstadoMaquina());
-        maquina.nuevaPartida(); // 100ª partida
-        assertFalse(maquina.EstadoMaquina());
-    }
-
-     */
-
-
-
-
-    @Test
-    public void testMejorPuntuacionEnRanking() {
-        int[] puntuaciones = {100, 200, 300};
-        // Simular puntuaciones manualmente
-        maquina.getMejoresPuntuaciones()[0] = 100;
-        maquina.getMejoresPuntuaciones()[1] = 50;
-        maquina.getMejoresPuntuaciones()[2] = 25;
-
-        // Hacemos una partida con puntuación alta manual
-        // Como nuevaPartida() genera aleatorio, en test real sería mejor modificar la función para pasar puntuación fija
-        // Aquí solo comprobamos que el array existe y tiene 3 posiciones
-        assertEquals(3, maquina.getMejoresPuntuaciones().length);
+        assertFalse(m.EstadoMaquina());
     }
 }

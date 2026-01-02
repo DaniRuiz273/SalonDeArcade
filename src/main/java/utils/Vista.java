@@ -40,8 +40,7 @@ public class Vista {
             System.out.println("13. Dar de baja a un jugador");
             System.out.println("14. Editar una máquina");
             System.out.println("15. Editar el nombre de un jugador");
-            System.out.println("16. Estadísticas generales de la sala");
-            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 16);
+            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 15);
             switch (opciones){
                 case 0:
                     System.out.println("SALIENDO...");
@@ -105,26 +104,10 @@ public class Vista {
                 case 15:
                     editarJugador(ElTemploDelArcade);
                     break;
-
-                case 16:
-                    mostrarEstadisticas(ElTemploDelArcade);
-                    break;
             }
         }while (opciones != 0);
     }
-
-    /**
-     * Método con el que imprimimos por pantalla las estadísticas generales de la sala
-     * @param sala Donde se encuentran los datos necesarios para las estadísticas
-     */
-    public static void mostrarEstadisticas (SalaRecreativa sala){
-        System.out.println("--- ESTADÍSTICAS DEL TEMPLO DEL ARCADE ---");
-        System.out.println("---------------------------------------");
-        System.out.println("Jugadores registrados: " + sala.getCapacidadJugadores());
-        System.out.println("Máquinas registradas: " + sala.getCapacidadMaquinas());
-        System.out.println("Partidas totales jugadas: " + sala.getTotalPartidas());
-    }
-
+    // TODO: Mirar si podemos poner más opciones en el mostrarEstadisticas. Darle una última revisión final.
     /**
      * Método con el que imprimimos por pantalla el jugador más activo de la sala
      * @param sala Lugar donde se encuentran los jugadores

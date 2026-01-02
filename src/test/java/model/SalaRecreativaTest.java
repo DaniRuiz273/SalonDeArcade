@@ -1,55 +1,50 @@
 package model;
-
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.*;
-
 public class SalaRecreativaTest {
 
-    SalaRecreativa sala;
-    Jugador jugador;
-    MaquinaArcade maquina;
-
-    @BeforeEach
-    public void setup() throws Exception {
-        sala = new SalaRecreativa();
-        jugador = new Jugador("Mi Rey", 50);
-        maquina = new MaquinaArcade("PacMan", "laberintos", 20); // Asumiendo constructor con nombre y precio
-
-        sala.addJugador(jugador);
-        sala.addMaquina(maquina);
-    }
-
     @Test
-    public void testNoJugarSiSinCreditos() {
-        jugador.setCreditosDisponibles(0);
-        Exception exception = assertThrows(Exception.class, () -> {
-            sala.gestionarPartida(23, "pinball");
-        });
-        assertEquals("No tiene suficientes créditos para jugar una partida", exception.getMessage());
-    }
+    void noSePuedeJugarSinCreditos() {
+        SalaRecreativa sala = new SalaRecreativa();
+        Jugador j = new Jugador("Juan", 0);
+        MaquinaArcade m = new MaquinaArcade("Pacman", "Arcade", 5);
 
-    @Test
-    public void testNoJugarSiMaquinaInactiva() {
-        maquina.cambiarEstado(1); // Asumiendo que existe setActiva()
-        Exception exception = assertThrows(Exception.class, () -> {
-            sala.gestionarPartida(23, "pinball");
-        });
-        assertEquals("La máquina esta desactivada, no se puede jugar", exception.getMessage());
-    }
+        sala.addJugador(j);
+        sala.addMaquina(m);
 
-    @Test
-    public void testCreditoDisminuyeAlJugar() throws Exception {
-        int saldoAntes = jugador.getCreditosDisponibles();
-        sala.gestionarPartida(23, "pinball");
-        assertEquals(saldoAntes - maquina.getPrecioPorPartida(), jugador.getCreditosDisponibles());
-    }
+        sala.gestionarPartida(j.getIdUnico(), m.getNombreMaquina());
 
-    @Test
-    public void testIncrementaNumeroPartidasJugador() throws Exception {
-        int partidasAntes = jugador.getNumeroPartidasJugadas();
-        sala.gestionarPartida(23, "pinball");
-        assertEquals( 2, jugador.getNumeroPartidasJugadas());
-    }
+        assertEquals(0, j.getNumeroPartidasJugadas());
+        }
+
+        @Test
+        void noSePuedeJugarSiLaMaquinaEstaInactiva() {
+            SalaRecreativa sala = new SalaRecreativa();
+            Jugador j = new Jugador("Juan", 20);
+            MaquinaArcade m = new MaquinaArcade("Pacman", "Arcade", 5);
+
+            sala.darDeBajaMaquina(String.valueOf(m));
+
+            sala.addJugador(j);
+            sala.addMaquina(m);
+
+            sala.gestionarPartida(j.getIdUnico(), m.getNombreMaquina());
+            assertEquals(0, j.getNumeroPartidasJugadas());
+        }
+
+        @Test
+        void alJugarPartida_elCreditoDisminuye() {
+            SalaRecreativa sala = new SalaRecreativa();
+            Jugador j = new Jugador("Juan", 20);
+            MaquinaArcade m = new MaquinaArcade("Pacman", "Arcade", 5);
+
+            sala.addJugador(j);
+            sala.addMaquina(m);
+
+            sala.gestionarPartida(j.getIdUnico(), m.getNombreMaquina());
+
+            assertEquals(15, j.getCreditosDisponibles());
+        }
+
 }
+

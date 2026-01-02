@@ -34,12 +34,14 @@ public class Jugador {
     /**
      * Método con el que controlamos los créditos que se gastan de un jugador
      * @param cantidad Es el número de créditos que se van a descontar de los créditos disponibles del jugador
+     * @return True si se han descontado los créditos y False si no
      */
-    public void gastarCreditos(int cantidad) {
+    public boolean gastarCreditos(int cantidad) {
         if (cantidad <= 0 || cantidad > this.creditosDisponibles) {
-            return;
+            return false;
         }
         this.creditosDisponibles -= cantidad;
+        return true;
     }
 
 

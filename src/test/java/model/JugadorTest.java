@@ -1,42 +1,43 @@
 package model;
-
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.Jugador;
-
 public class JugadorTest {
 
-    Jugador jugador;
+    @Test
+    void recargarCreditos_aumentaSaldo() {
+        Jugador j = new Jugador("Juan", 0);
+        j.recargarCreditos(10);
 
-    @BeforeEach
-    public void setup() {
-        jugador = new Jugador("Luis" , 50);
+        assertEquals(10, j.getCreditosDisponibles());
     }
 
     @Test
-    public void testRecargarCreditos() {
-        jugador.recargarCreditos(30);
-        assertEquals(80, jugador.getCreditosDisponibles());
+    void gastarCreditos_disminuyeSaldo() {
+        Jugador j = new Jugador("Juan", 0);
+        j.recargarCreditos(20);
+
+        j.gastarCreditos(5);
+
+        assertEquals(15, j.getCreditosDisponibles());
     }
 
     @Test
-    public void testGastarCreditos() {
-        jugador.gastarCreditos(20);
-        assertEquals(30, jugador.getCreditosDisponibles());
+    void noSePuedenGastarMasCreditosDeLosDisponibles() {
+        Jugador j = new Jugador("Juan", 0);
+        j.recargarCreditos(5);
+
+        boolean resultado = j.gastarCreditos(10);
+
+        assertFalse(resultado);
+        assertEquals(5, j.getCreditosDisponibles());
     }
 
     @Test
-    public void testNoGastarMasCreditosDeLosQueTiene() {
-        jugador.gastarCreditos(100); // su saldo actual es 50
-        assertEquals(50, jugador.getCreditosDisponibles(),
-                "No debería gastar más créditos de los disponibles");
-    }
+    void jugarPartida_incrementaNumeroDePartidas() {
+        Jugador j = new Jugador("Juan", 50);
 
-    @Test
-    public void testIncrementarNumeroPartidas() {
-        int partidasAntes = jugador.getNumeroPartidasJugadas();
-        jugador.incrementarNumeroPartidas();
-        assertEquals(partidasAntes + 1, jugador.getNumeroPartidasJugadas());
+        j.incrementarNumeroPartidas();
+
+        assertEquals(1, j.getNumeroPartidasJugadas());
     }
 }
