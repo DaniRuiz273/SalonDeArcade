@@ -107,7 +107,7 @@ public class Vista {
             }
         }while (opciones != 0);
     }
-    // TODO: Mirar si podemos poner más opciones en el mostrarEstadisticas. Darle una última revisión final.
+
     /**
      * Método con el que imprimimos por pantalla el jugador más activo de la sala
      * @param sala Lugar donde se encuentran los jugadores
@@ -116,6 +116,7 @@ public class Vista {
         System.out.println("El jugador más activo es: ");
         System.out.println(sala.jugadorMasActivo());
     }
+
     /**
      * Método con el que imprimimos por pantalla la manera de editar el nombre de un jugador que ya estaba en la sala
      * @param sala Donde se encuentran los jugadores que podemos editar

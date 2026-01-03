@@ -12,8 +12,8 @@ public class SalaRecreativa {
      * @return True si el nombre está repetido y False si no lo está
      */
     public boolean existeNombreMaquina (String nombre){
-        for(int i = 0; i < capacidadMaquinas; i++){
-            if(maquinas[i].getNombreMaquina().equalsIgnoreCase(nombre)){
+        for(int i = 0; i < this.capacidadMaquinas; i++){
+            if(this.maquinas[i].getNombreMaquina().equalsIgnoreCase(nombre)){
                 return true;
             }
         }
@@ -26,8 +26,8 @@ public class SalaRecreativa {
      * @return True si el nombre ya está dentro de la sala y False si no lo está
      */
     public boolean existeNombreJugador (String nombre){
-        for(int i = 0; i < capacidadJugadores; i++){
-           if(jugadores[i].getNombre().equalsIgnoreCase(nombre)){
+        for(int i = 0; i < this.capacidadJugadores; i++){
+           if(this.jugadores[i].getNombre().equalsIgnoreCase(nombre)){
                return true;
            }
         }
@@ -79,13 +79,13 @@ public class SalaRecreativa {
      * @return True si se ha dado de baja y false si no
      */
     public boolean darDeBajaJugador (String nombreJugador){
-        for (int i = 0; i < capacidadJugadores; i++){ // Recorremos solo las posiciones que están ocupadas
-            if (jugadores[i].getNombre().equalsIgnoreCase(nombreJugador)){ // Comparamos los nombres de los jugadores que están dentro del array con el nombre que introduce el usuario
-                for (int j = i; j < capacidadJugadores - 1; j++){ // Movemos los jugadores
-                    jugadores[j] = jugadores[j + 1]; // Desplazamos los jugadores una posición a la izquierda
+        for (int i = 0; i < this.capacidadJugadores; i++){ // Recorremos solo las posiciones que están ocupadas
+            if (this.jugadores[i].getNombre().equalsIgnoreCase(nombreJugador)){ // Comparamos los nombres de los jugadores que están dentro del array con el nombre que introduce el usuario
+                for (int j = i; j < this.capacidadJugadores - 1; j++){ // Movemos los jugadores
+                    this.jugadores[j] = this.jugadores[j + 1]; // Desplazamos los jugadores una posición a la izquierda
                 }
-                jugadores[capacidadJugadores -1] = null; // Ahora la última posición queda duplicada por lo que hacemos que se quede en null directamente
-                capacidadJugadores--; // Ponemos que ahora hay un jugador menos en el array, pero se queda con el mismo tamaño
+                this.jugadores[this.capacidadJugadores -1] = null; // Ahora la última posición queda duplicada por lo que hacemos que se quede en null directamente
+                this.capacidadJugadores--; // Ponemos que ahora hay un jugador menos en el array, pero se queda con el mismo tamaño
                 return true;
             }
         }
@@ -98,13 +98,13 @@ public class SalaRecreativa {
      * @return Devuelve true si se ha dado de baja la máquina y false si no
      */
     public boolean darDeBajaMaquina(String nombreMaquina) {
-        for (int i = 0; i < capacidadMaquinas; i++) { // Recorremos solo las posiciones que están ocupadas
-            if (maquinas[i].getNombreMaquina().equalsIgnoreCase(nombreMaquina)) { // Comparamos los nombres de las máquinas que están dentro del array con el nombre introducido por el usuario
-                for (int j = i; j < capacidadMaquinas - 1; j++) { // Movemos las máquinas
-                    maquinas[j] = maquinas[j + 1]; // Movemos a las máquinas una posición a la izquierda
+        for (int i = 0; i < this.capacidadMaquinas; i++) { // Recorremos solo las posiciones que están ocupadas
+            if (this.maquinas[i].getNombreMaquina().equalsIgnoreCase(nombreMaquina)) { // Comparamos los nombres de las máquinas que están dentro del array con el nombre introducido por el usuario
+                for (int j = i; j < this.capacidadMaquinas - 1; j++) { // Movemos las máquinas
+                    this.maquinas[j] = this.maquinas[j + 1]; // Movemos a las máquinas una posición a la izquierda
                 }
-                maquinas[capacidadMaquinas - 1] = null; // Ahora como la última posición queda duplicada hacemos que esté en null directamente
-                capacidadMaquinas--; // Ahora hay una máquina menos en al array, pero su tamaño sigue siendo el mismo
+                this.maquinas[this.capacidadMaquinas - 1] = null; // Ahora como la última posición queda duplicada hacemos que esté en null directamente
+                this.capacidadMaquinas--; // Ahora hay una máquina menos en al array, pero su tamaño sigue siendo el mismo
                 return true;
             }
         }

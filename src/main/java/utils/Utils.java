@@ -30,7 +30,6 @@ public class Utils {
         return true;
     }
 
-
     /**
      * Método con el que pedimos un entero entre dos valores
      * @param mensaje Mensaje donde indica que introduzcas un entero entre los dos valores
@@ -85,7 +84,6 @@ public class Utils {
         return valor >= numeroMin && valor <= numeroMax;
     }
 
-
     /**
      * Método con el que generamos un numero aleatorio dentro de un rango
      * @param numMin Valor mínimo del rango
@@ -96,6 +94,12 @@ public class Utils {
         return (int)(Math.random()*(numMax-numMin+1)+numMin);
     }
 
+    /**
+     * Método con el que comprobamos que lo introducido por el usuario es una cadena
+     * @param msn Mensaje
+     * @param msnError Mensaje de error por si no se ha introducido una cadena
+     * @return Devuelve la cadena ya validada
+     */
     public static String pideCadena (String msn, String msnError){
         Scanner sc = new Scanner(System.in);
         String cadena = "";
