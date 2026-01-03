@@ -45,14 +45,14 @@ public class MaquinaArcade {
      */
     public void rankingMaquina(int puntuacion, Jugador jugador) {
         boolean insertado = false;
-        for (int i = 0; i < this.mejoresPuntuaciones.length; i++) {
-            if (!insertado && puntuacion > this.mejoresPuntuaciones[i]) {
+        for (int i = 0; i < this.mejoresPuntuaciones.length; i++) { // Recorremos el array de mejores puntuaciones
+            if (!insertado && puntuacion > this.mejoresPuntuaciones[i]) { // Si es True y puntuación es mayor que alguna de las tres que ya están dentro del array pasa al siguiente paso
                 for (int j = this.mejoresPuntuaciones.length - 1; j > i; j--) {
                     this.mejoresPuntuaciones[j] = this.mejoresPuntuaciones[j - 1]; // Desplaza las puntuaciones una para abajo
                     this.mejoresJugadores[j] = this.mejoresJugadores[j - 1]; // Desplaza los jugadores una para abajo
                 }
-                this.mejoresPuntuaciones[i] = puntuacion;
-                this.mejoresJugadores[i] = jugador;
+                this.mejoresPuntuaciones[i] = puntuacion; // Actualizamos las mejores puntuaciones
+                this.mejoresJugadores[i] = jugador; // Actualizamos el jugador que ha hecho la puntuación
                 insertado = true;
             }
         }

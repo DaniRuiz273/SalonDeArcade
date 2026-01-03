@@ -12,8 +12,8 @@ public class SalaRecreativa {
      * @return True si el nombre está repetido y False si no lo está
      */
     public boolean existeNombreMaquina (String nombre){
-        for(int i = 0; i < this.capacidadMaquinas; i++){
-            if(this.maquinas[i].getNombreMaquina().equalsIgnoreCase(nombre)){
+        for(int i = 0; i < this.capacidadMaquinas; i++){ // Cogemos los nombres de las máquinas que ya están en la sala
+            if(this.maquinas[i].getNombreMaquina().equalsIgnoreCase(nombre)){ // Comprobamos que el nombre de la máquina es igual que el introducido por consola
                 return true;
             }
         }
@@ -26,8 +26,8 @@ public class SalaRecreativa {
      * @return True si el nombre ya está dentro de la sala y False si no lo está
      */
     public boolean existeNombreJugador (String nombre){
-        for(int i = 0; i < this.capacidadJugadores; i++){
-           if(this.jugadores[i].getNombre().equalsIgnoreCase(nombre)){
+        for(int i = 0; i < this.capacidadJugadores; i++){ // Cogemos los nombres de los jugadores que están dentro de la sala
+           if(this.jugadores[i].getNombre().equalsIgnoreCase(nombre)){ // Comprobamos que el nombre del jugador es igual que el introducido por el usuario
                return true;
            }
         }
@@ -42,10 +42,10 @@ public class SalaRecreativa {
      */
     public boolean editarJugador (int idUnico, String nombreNuevo){
         Jugador jugador = buscarIDJugador(idUnico);
-        if(jugador == null){
+        if(jugador == null){ // Comprobamos que el jugador introducido no sea null
             return false;
         }
-        jugador.setNombre(nombreNuevo);
+        jugador.setNombre(nombreNuevo); // El usuario cambia el nombre
         return true;
     }
     /**
@@ -58,7 +58,7 @@ public class SalaRecreativa {
      */
     public boolean editarMaquina (String nombreActual, String nombreNuevo, String generoNuevo, int precioPorParidaNuevo){
         MaquinaArcade maquina = buscarNombreMaquina(nombreActual);
-        if(maquina == null){
+        if(maquina == null){ // Comprobamos que la máquina introducida no sea null
             return false;
         }
 
@@ -67,9 +67,9 @@ public class SalaRecreativa {
             return false;
         }
 
-        maquina.setNombreMaquina(nombreNuevo);
-        maquina.setGeneroMaquina(generoNuevo);
-        maquina.setPrecioPorPartida(precioPorParidaNuevo);
+        maquina.setNombreMaquina(nombreNuevo); // El usuario cambia el nombre
+        maquina.setGeneroMaquina(generoNuevo); // El usuario cambia el género
+        maquina.setPrecioPorPartida(precioPorParidaNuevo); // El usuario cambia el precio por partida
         return true;
     }
 
@@ -204,9 +204,9 @@ public class SalaRecreativa {
      * @return Devuelve el jugador que estamos buscando
      */
     public Jugador buscarIDJugador(int idUnico){
-        for (Jugador jugador : this.jugadores){
-            if(jugador.getIdUnico() == idUnico){
-                return jugador;
+        for (Jugador jugador : this.jugadores){ // Recorre cada jugador del array y llamamos jugador a cada elemento del array
+            if(jugador.getIdUnico() == idUnico){ // Ahora comparámos el jugador del array con el nombre del jugador que ha escrito el usuario
+                return jugador; // Devuelve el jugador si coincide con el nombre
             }
         }
         return null;
@@ -218,14 +218,14 @@ public class SalaRecreativa {
      * @param jugadorAdd Es el jugador que queremos añadir a la sala
      */
     public boolean addJugador (Jugador jugadorAdd) {
-        if (jugadorAdd == null) {
+        if (jugadorAdd == null) { // Comprobamos que el jugador que queremos registrar no sea null
             return false;
         }
-        if (this.capacidadJugadores >= this.jugadores.length) {
+        if (this.capacidadJugadores >= this.jugadores.length) { // Comprobamos que haya capacidad en la sala
             return false;
         }
-        this.jugadores[this.capacidadJugadores] = jugadorAdd;
-        this.capacidadJugadores++;
+        this.jugadores[this.capacidadJugadores] = jugadorAdd; // Añadimos el jugador a la sala
+        this.capacidadJugadores++; // Aumentamos el número de jugadores que están en la sala
         return true;
     }
 
@@ -234,20 +234,20 @@ public class SalaRecreativa {
      * @param maquinaAdd Es la máquina que queremos añadir a la sala
      */
     public boolean addMaquina (MaquinaArcade maquinaAdd){
-        if(maquinaAdd == null){
+        if(maquinaAdd == null){ // Comprobamos que la máquina registrada no sea null
             return false;
         }
 
         int precio = maquinaAdd.getPrecioPorPartida();
-        if (precio <= 0 || (precio % 10 != 0 && precio % 10 != 5)) {
+        if (precio <= 0 || (precio % 10 != 0 && precio % 10 != 5)) { // Comprobamos que el precio introducido acabe en 0 o en 5
             return false;
         }
 
-        if(this.capacidadMaquinas >= this.maquinas.length){
+        if(this.capacidadMaquinas >= this.maquinas.length){ // Comprobamos que halla espacio en la sala
            return false;
         }
-        this.maquinas[this.capacidadMaquinas] = maquinaAdd;
-        this.capacidadMaquinas++;
+        this.maquinas[this.capacidadMaquinas] = maquinaAdd; // Añadimos la máquina
+        this.capacidadMaquinas++; // Incrementamos el número de máquinas en la sala
         return true;
     }
 

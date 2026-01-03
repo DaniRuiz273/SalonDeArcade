@@ -3,13 +3,13 @@ import model.Jugador;
 import model.MaquinaArcade;
 import model.SalaRecreativa;
 public class Vista {
-    public static void llamarMenu (){
+    public static void llamarMenu () {
         int opciones;
         SalaRecreativa ElTemploDelArcade = new SalaRecreativa();
 
-        Jugador j1 = new Jugador("Dani",  15);
+        Jugador j1 = new Jugador("Dani", 15);
         Jugador j2 = new Jugador("Juan", 45);
-        Jugador j3 = new Jugador("Lucía", 30);
+        Jugador j3 = new Jugador("Marcos", 30);
         ElTemploDelArcade.addJugador(j1);
         ElTemploDelArcade.addJugador(j2);
         ElTemploDelArcade.addJugador(j3);
@@ -40,8 +40,8 @@ public class Vista {
             System.out.println("13. Dar de baja a un jugador");
             System.out.println("14. Editar una máquina");
             System.out.println("15. Editar el nombre de un jugador");
-            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 11: ", "Error, debes introducir un entero entre 0 y 11", 0, 15);
-            switch (opciones){
+            opciones = Utils.pideEnteroEntreValores("Introduce una opción entre 0 y 15: ", "Error, debes introducir un entero entre 0 y 15", 0, 15);
+            switch (opciones) {
                 case 0:
                     System.out.println("SALIENDO...");
                     break;
@@ -105,7 +105,7 @@ public class Vista {
                     editarJugador(ElTemploDelArcade);
                     break;
             }
-        }while (opciones != 0);
+        } while (opciones != 0);
     }
 
     /**
@@ -134,6 +134,11 @@ public class Vista {
         String nombreNuevo = Utils.pideCadena("Introduce el nuevo nombre del jugador: ", "Error");
         if(!Utils.cadenaValida(nombreNuevo)){
             System.out.println("El nombre no es válido, solo puedes poner letras");
+            return;
+        }
+
+        if(sala.existeNombreJugador(nombreNuevo)){
+            System.out.println("El nombre introducido ya existe, pruebe con otro");
             return;
         }
 
@@ -167,6 +172,11 @@ public class Vista {
         String nombreNuevo = Utils.pideCadena("¿Cuál es el nuevo nombre de la máquina?: ", "Error");
         if(!Utils.cadenaValida(nombreNuevo)){
             System.out.println("El nombre no es válido, solo puedes poner letras");
+            return;
+        }
+
+        if(sala.existeNombreMaquina(nombreNuevo)){
+            System.out.println("El nombre introducido ya estaba en la sala, pruebe con otro");
             return;
         }
 
@@ -247,8 +257,8 @@ public class Vista {
      */
     public static void mostrarJugadores(SalaRecreativa sala) {
         Jugador[] jugadores = sala.getJugadores(); // Pido a la sala que me dé todas sus jugadores para poder utilizarlas
-        for (Jugador j : jugadores) { //
-            if (j != null) {
+        for (Jugador j : jugadores) { // Recorre cada jugador del array y llama j a cada jugador
+            if (j != null) { // Si j es distinto de null es que está dentro de la sala
                 System.out.println("ID: " + j.getIdUnico() +
                         "\nNombre: " + j.getNombre());
             }
@@ -344,7 +354,9 @@ public class Vista {
      * Método con el que imprimimos por pantalla como poder registrar a un nuevo jugador
      */
     public static void registrarJugador (SalaRecreativa sala) {
-        String nombre = Utils.pideCadena("Introduce el nombre del jugador: ", "Error, debes introducir un nombre de una persona").trim();
+        System.out.println("Jugadores en la sala: ");
+        mostrarJugadores(sala);
+        String nombre = Utils.pideCadena("Introduce el nombre del nuevo jugador: ", "Error, debes introducir un nombre de una persona").trim();
         if(!Utils.cadenaValida(nombre)){
             System.out.println("Este nombre no es válido, solo puedes poner letras");
             return;
@@ -375,7 +387,9 @@ public class Vista {
      * @param sala Donde se guarda las máquinas nuevas que registremos
      */
     public static void registraMaquina (SalaRecreativa sala){
-        String nombre = Utils.pideCadena("Introduce el nombre de la máquina: ", "Error, debes introducir un nombre").trim();
+        System.out.println("Máquinas en la sala: ");
+        mostrarMaquinas(sala);
+        String nombre = Utils.pideCadena("Introduce el nombre de la nueva máquina: ", "Error, debes introducir un nombre").trim();
         if (!Utils.cadenaValida(nombre)) {
             System.out.println("Este nombre no es válido, solo puedes poner letras");
             return;

@@ -22,14 +22,13 @@ public class Jugador {
             return false;
         }
 
-        if (cantidad % 10 != 0 && cantidad % 10 != 5) {
+        if (cantidad % 10 != 0 && cantidad % 10 != 5) { // Comprobamos que los créditos siempre acaben en 0 o en 5
             return false;
         }
 
         this.creditosDisponibles += cantidad;
         return true;
     }
-
 
     /**
      * Método con el que controlamos los créditos que se gastan de un jugador
@@ -43,7 +42,6 @@ public class Jugador {
         this.creditosDisponibles -= cantidad;
         return true;
     }
-
 
     /**
      * Método con el incrementamos el número de partidas que un jugador ha jugado
@@ -69,10 +67,6 @@ public class Jugador {
 
     public int getCreditosDisponibles() {
         return creditosDisponibles;
-    }
-
-    public void setCreditosDisponibles(int creditosDisponibles) {
-        this.creditosDisponibles = creditosDisponibles;
     }
 
     public int getIdUnico() {
