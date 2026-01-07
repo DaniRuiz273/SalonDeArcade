@@ -15,12 +15,12 @@ public class Vista {
         ElTemploDelArcade.addJugador(j3);
 
         MaquinaArcade pinball = new MaquinaArcade("Pinball", "Juego de salón", 10);
-        MaquinaArcade donkeykong = new MaquinaArcade("DonkeyKong", "Plataformas", 10);
+        MaquinaArcade tetris = new MaquinaArcade("Tetris", "Puzle", 5);
         ElTemploDelArcade.addMaquina(pinball);
-        ElTemploDelArcade.addMaquina(donkeykong);
+        ElTemploDelArcade.addMaquina(tetris);
 
         pinball.cambiarEstado(1);
-        donkeykong.cambiarEstado(1);
+        tetris.cambiarEstado(1);
 
         do {
             System.out.println("----- EL TEMPLO DEL ARCADE -----");
@@ -313,7 +313,13 @@ public class Vista {
         mostrarMaquinas(sala);
         MaquinaArcade maquina = sala.buscarNombreMaquina(Utils.pideCadena("Introduce el nombre de la máquina a la que quieres jugar:", "Error, esa máquina no existe en la sala"));
 
+        if(jugador.getCreditosDisponibles() < maquina.getPrecioPorPartida()){
+            System.out.println("No se ha podido jugar la partida, el jugador no tiene suficientes créditos");
+            return;
+        }
+
         int puntuacion = sala.gestionarPartida(jugador.getIdUnico(), maquina.getNombreMaquina());
+
         if(puntuacion == -1){
             System.out.println("La partida no ha podido jugarse");
             return;

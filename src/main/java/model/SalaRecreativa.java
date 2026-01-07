@@ -175,7 +175,7 @@ public class SalaRecreativa {
      * Método con el que solo imprimimos por pantalla las máquinas que están activas dentro de la sala
      */
     public String listarMaquinasActivas (){
-        String texto = "Máquinas activas: ";
+        String texto = "Máquinas activas: \n";
         for(int i = 0; i < this.capacidadMaquinas; i++){
             if(this.maquinas[i].EstadoMaquina()){
                 texto += this.maquinas[i] + "\n";
