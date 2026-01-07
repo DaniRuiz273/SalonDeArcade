@@ -205,7 +205,7 @@ public class SalaRecreativa {
      */
     public Jugador buscarIDJugador(int idUnico){
         for (Jugador jugador : this.jugadores){ // Recorre cada jugador del array y llamamos jugador a cada elemento del array
-            if(jugador.getIdUnico() == idUnico){ // Ahora comparámos el jugador del array con el nombre del jugador que ha escrito el usuario
+            if(jugador != null && jugador.getIdUnico() == idUnico){ // Ahora comparámos el jugador del array con el nombre del jugador que ha escrito el usuario
                 return jugador; // Devuelve el jugador si coincide con el nombre
             }
         }
@@ -251,8 +251,12 @@ public class SalaRecreativa {
         return true;
     }
 
+    /**
+     * Método con el que listamos por pantalla los jugadores de la sala
+     * @return Devuelve un String con la información de los jugadores
+     */
     public String listarJugadores (){
-        String texto = "Jugadores en la sala: ";
+        String texto = "--- JUGADORES --- ";
         if(this.capacidadJugadores == 0){
             texto += "No hay jugadores en la sala";
         } else {
@@ -263,8 +267,12 @@ public class SalaRecreativa {
         return texto;
     }
 
+    /**
+     * Método con el que listamos las máquinas de la sala
+     * @return Devuelve un String con la información de las máquinas
+     */
     public String listarMaquinas (){
-        String texto = "Maquinas en la sala : \n";
+        String texto = "--- MÁQUINAS --- \n";
         if(this.capacidadMaquinas == 0){
             texto += "No hay máquinas en la sala";
         } else {
@@ -276,24 +284,8 @@ public class SalaRecreativa {
     }
 
     public String toString() {
-        String texto = "--- JUGADORES ---";
-        if(this.capacidadJugadores == 0){
-            texto += "No hay jugadores en la sala";
-        } else {
-            for (int i = 0; i < this.capacidadJugadores; i++) { // Recorre el array hasta la capacidad actual
-                texto += this.jugadores[i] + "\n";
-            }
-        }
-
-        texto += "--- MÁQUINAS ---\n";
-        if(this.capacidadMaquinas == 0){
-            texto += "No hay máquinas en la sala";
-        } else {
-            for(int i = 0; i < this.capacidadMaquinas; i++){ // Recorre el array hasta la capacidad actual
-                texto += this.maquinas[i] + "\n";
-            }
-        }
-        return texto;
+        return listarJugadores() +
+                "\n" + listarMaquinas();
     }
 
 

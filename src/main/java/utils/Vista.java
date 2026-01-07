@@ -129,6 +129,7 @@ public class Vista {
         Jugador jugador = sala.buscarIDJugador(idUnico);
         if(jugador == null){
             System.out.println("El jugador que has introducido no existe");
+            return;
         }
 
         String nombreNuevo = Utils.pideCadena("Introduce el nuevo nombre del jugador: ", "Error");
@@ -299,6 +300,7 @@ public class Vista {
     public static void jugarUnaPartida (SalaRecreativa sala) {
         if(sala.getCapacidadJugadores() == 0){
             System.out.println("No hay jugadores en la sala, registra uno antes de jugar");
+            return;
         }
 
         System.out.println("Jugadores en la sala: ");
