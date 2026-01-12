@@ -108,6 +108,31 @@ public class Vista {
         } while (opciones != 0);
     }
 
+    public static String generosDisponibles (){
+        return """
+                Géneros disponibles: \
+                
+                 1. Disparos\
+                
+                 2. Puzle\
+                
+                 3. Plataformas\
+                
+                 4. Luchas\
+                
+                 5. Juegos de salón\
+                
+                 6. Galaxias\
+                
+                 7. Acción y aventuras\
+                
+                 8. Historia\
+                
+                 9. Drama\
+                
+                 10. Terror""";
+    }
+
     /**
      * Método con el que imprimimos por pantalla el jugador más activo de la sala
      * @param sala Lugar donde se encuentran los jugadores
@@ -408,18 +433,8 @@ public class Vista {
             return;
         }
 
-        System.out.println("Géneros disponibles: ");
-        System.out.println("1. Disparos");
-        System.out.println("2. Puzle");
-        System.out.println("3. Plataformas");
-        System.out.println("4. Luchas");
-        System.out.println("5. Juego de salón");
-        System.out.println("6. Galaxias");
-        System.out.println("7. Acción y aventuras");
-        System.out.println("8. Historia");
-        System.out.println("9. Drama");
-        System.out.println("10. Terror");
-        String genero = Utils.pideCadena("Introduce un género de los anteriores para la máquina: ", "Error, debes introducir un género de los anteriores").trim();
+        System.out.println(generosDisponibles());
+        String genero = Utils.pideCadena("Introduce un genero de los anteriores para la máquina: ", "Error, debes de introducir un genero de los anteriores");
         if(!Utils.cadenaValida(genero)){
             System.out.println("Este género no es válido, solo puedes poner letras");
             return;
