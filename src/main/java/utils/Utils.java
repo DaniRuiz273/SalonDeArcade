@@ -9,7 +9,7 @@ public class Utils {
      * @return Devuelve True si el precio introducido es válido y False si no lo es
      */
     public static boolean precioValido (int precio){
-        return precio > 0 && (precio % 10 == 0 || precio % 10 == 5);
+        return precio > 0 && (precio % 10 == 0 || precio % 10 == 5); // Comprobamos que el precio sea mayor que 0 y que el precio acabe en 0 o en 5
     }
 
     /**
@@ -41,12 +41,12 @@ public class Utils {
     public static int pideEnteroEntreValores(String mensaje, String mensajeError, int numeroMin, int numeroMax){
         int numero;
         do {
-            numero = pideEntero(mensaje, mensajeError);
-            if(numero<numeroMin||numero>numeroMax){
-                System.out.println(mensajeError);
+            numero = pideEntero(mensaje, mensajeError); // Usamos el pide entero anterior para que ahora sea el número
+            if(numero<numeroMin||numero>numeroMax){ // Comprobamos que el número introducido no sea menor ni mayor que el rango introducido
+                System.out.println(mensajeError); // Imprimimos el mensaje de error por pantalla
             }
-        } while(numero<numeroMin||numero>numeroMax);
-        return numero;
+        } while(numero<numeroMin||numero>numeroMax); // Seguimos en el bucle mientras el número sea menor o mayor que el rango establecido
+        return numero; // Devolvemos el número ya comprobado
     }
 
     /**
@@ -60,17 +60,17 @@ public class Utils {
         int numero = 0;
         boolean noHayError;
         do {
-            System.out.println(mensaje);
+            System.out.println(mensaje); // Imprimimos por pantalla el mensaje que queremos indicar
             try {
-                numero = sc.nextInt();
-                noHayError = true;
-            } catch (InputMismatchException e) {
-                System.out.println(mensajeError);
-                noHayError = false;
+                numero = sc.nextInt(); // El número es igual al scanner
+                noHayError = true; // Devolvemos true
+            } catch (InputMismatchException e) { // Cogemos el error que nos produce
+                System.out.println(mensajeError); // Imprimimos por pantalla el mensaje de error
+                noHayError = false; // Devolvemos false
                 sc.nextLine(); // Limpiar buffer
             }
-        } while (!noHayError);
-        return numero;
+        } while (!noHayError); // Seguimos en el bucle mientras que noHayError no sea true
+        return numero; // Devolvemos el número que hemos introducido
     }
 
     /**
@@ -81,7 +81,7 @@ public class Utils {
      * @return Devuelve true si está dentro del rango y false si no lo está
      */
     public static boolean comprobarRango(int valor, int numeroMin, int numeroMax) {
-        return valor >= numeroMin && valor <= numeroMax;
+        return valor >= numeroMin && valor <= numeroMax; // Comprobamos que el valor introducido esté entre los valores establecidos
     }
 
     /**
@@ -91,7 +91,7 @@ public class Utils {
      * @return Devuelve el número aleatorio generado
      */
     public static int generaNumeroAleatorio (int numMin, int numMax){
-        return (int)(Math.random()*(numMax-numMin+1)+numMin);
+        return (int)(Math.random()*(numMax-numMin+1)+numMin); // Generamos un número aleatorio entre un rango de valores establecido
     }
 
     /**
@@ -106,15 +106,15 @@ public class Utils {
         boolean esValido = false;
 
         while (!esValido){
-            System.out.println(msn);
-            cadena = sc.nextLine().trim();
+            System.out.println(msn); // Imprimimos por pantalla un mensaje con lo que queramos pedir
+            cadena = sc.nextLine().trim(); // Hacemos que la cadena sea igual al scanner, por lo que lee lo que haya escrito el usuario por pantalla
 
-            if(!cadena.isEmpty()){
-                esValido = true;
+            if(!cadena.isEmpty()){ // Si la cadena es distinto de 0
+                esValido = true; // Devolvemos true
             } else {
-                System.out.println(msnError);
+                System.out.println(msnError); // Si no es distinto de 0, imprimimos por pantalla un mensaje de error
             }
         }
-        return cadena;
+        return cadena; // Devolvemos la cadena ya comprobada
     }
 }

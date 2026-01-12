@@ -14,10 +14,10 @@ public class SalaRecreativa {
     public boolean existeNombreMaquina (String nombre){
         for(int i = 0; i < this.capacidadMaquinas; i++){ // Cogemos los nombres de las máquinas que ya están en la sala
             if(this.maquinas[i].getNombreMaquina().equalsIgnoreCase(nombre)){ // Comprobamos que el nombre de la máquina es igual que el introducido por consola
-                return true;
+                return true; // Devolvemos true si el nombre ya existe en la sala
             }
         }
-        return false;
+        return false; // False si el nombre no está en la sala
     }
 
     /**
@@ -28,10 +28,10 @@ public class SalaRecreativa {
     public boolean existeNombreJugador (String nombre){
         for(int i = 0; i < this.capacidadJugadores; i++){ // Cogemos los nombres de los jugadores que están dentro de la sala
            if(this.jugadores[i].getNombre().equalsIgnoreCase(nombre)){ // Comprobamos que el nombre del jugador es igual que el introducido por el usuario
-               return true;
+               return true; // Devolvemos true si el nombre ya existe en la sala
            }
         }
-        return false;
+        return false; // False si el nombre no está en la sala
     }
 
     /**
@@ -48,6 +48,7 @@ public class SalaRecreativa {
         jugador.setNombre(nombreNuevo); // El usuario cambia el nombre
         return true;
     }
+
     /**
      * Método con el que podemos editar el nombre, genero y precio por partida de una máquina
      * @param nombreActual El nombre que tiene la máquina actualmente
@@ -111,7 +112,6 @@ public class SalaRecreativa {
         return false;
     }
 
-
     /**
      * Método con el que gestionamos un partida
      * @param idJugador Id único del jugador que va a jugar la partida
@@ -140,7 +140,7 @@ public class SalaRecreativa {
 
         int puntuacion = maquina.nuevaPartida(jugador); // Obtenemos la puntuación de la partida
         jugador.incrementarNumeroPartidas();// Incrementamos el número de partidas del jugador
-        return puntuacion;
+        return puntuacion; // Devolvemos la puntuación obtenida en la partida
     }
 
     /**
@@ -154,7 +154,7 @@ public class SalaRecreativa {
                 maquinaMasJugada = this.maquinas[i]; // Si hay una máquina con más partidas se cambia
             }
         }
-        return maquinaMasJugada;
+        return maquinaMasJugada; // Devolvemos la máquina con más partidas jugadas dentro de la sala
     }
 
     /**
@@ -163,12 +163,12 @@ public class SalaRecreativa {
      */
     public Jugador jugadorMasActivo() {
         Jugador masActivo = this.jugadores[0];   // Empiezo poniendo al primer jugador como que es el más activo
-        for (int i = 1; i < this.capacidadJugadores; i++) {
+        for (int i = 1; i < this.capacidadJugadores; i++) { // Empezamos el bucle en 1 y si 1 es menor que la capacidad de jugadores entonces pasa al siguiente bucle y asi hasta que un número sea mayor que la capacidad de jugadores
             if (this.jugadores[i].getNumeroPartidasJugadas() > masActivo.getNumeroPartidasJugadas()) { // Ahora comparo de uno en uno para saber si tienen más partidas jugadas que el anterior
-                masActivo = this.jugadores[i];   // Si hay otro jugador con más partidas se cambia
+                masActivo = this.jugadores[i];// Si hay otro jugador con más partidas se cambia
             }
         }
-        return masActivo;
+        return masActivo; // Devolvemos el jugador más activo dentro de la sala
     }
 
     /**
@@ -176,12 +176,12 @@ public class SalaRecreativa {
      */
     public String listarMaquinasActivas (){
         String texto = "Máquinas activas: \n";
-        for(int i = 0; i < this.capacidadMaquinas; i++){
-            if(this.maquinas[i].EstadoMaquina()){
-                texto += this.maquinas[i] + "\n";
+        for(int i = 0; i < this.capacidadMaquinas; i++){ // Recorremos las máquinas que hay dentro de la sala
+            if(this.maquinas[i].EstadoMaquina()){ // Si las máquinas están activadas pasan al siguiente paso, si no lo están no entran en el siguiente paso
+                texto += this.maquinas[i] + "\n"; // Imprimimos por pantalla lass máquinas que están activadas
             }
         }
-        return texto;
+        return texto; // Devolvemos el texto más las máquinas
     }
 
     /**
@@ -195,7 +195,7 @@ public class SalaRecreativa {
                 return maquina; // Devuelve la máquina si coincide con su nombre
             }
         }
-        return null;
+        return null; // Devolvemos null si no hay ninguna máquina con el nombre introducido por el usuario
     }
 
     /**
@@ -209,9 +209,8 @@ public class SalaRecreativa {
                 return jugador; // Devuelve el jugador si coincide con el nombre
             }
         }
-        return null;
+        return null; // Devolvemos null si el ID del jugador no coincide con el introducido por el usuario
     }
-
 
     /**
      * Método con el que añadimos un jugador en la sala
@@ -238,7 +237,7 @@ public class SalaRecreativa {
             return false;
         }
 
-        int precio = maquinaAdd.getPrecioPorPartida();
+        int precio = maquinaAdd.getPrecioPorPartida(); // Obtenemos el precio por partida de una máquina y lo guardamos en un entero
         if (precio <= 0 || (precio % 10 != 0 && precio % 10 != 5)) { // Comprobamos que el precio introducido acabe en 0 o en 5
             return false;
         }
@@ -257,14 +256,14 @@ public class SalaRecreativa {
      */
     public String listarJugadores (){
         String texto = "--- JUGADORES --- ";
-        if(this.capacidadJugadores == 0){
+        if(this.capacidadJugadores == 0){ // Si la capacidad de jugadores es igual a 0, imprimimos por pantalla el siguiente texto
             texto += "No hay jugadores en la sala";
         } else {
             for (int i = 0; i < this.capacidadJugadores; i++) { // Recorre el array hasta la capacidad actual
-                texto += this.jugadores[i] + "\n";
+                texto += this.jugadores[i] + "\n"; // Imprimimos por pantalla los jugadores que estén dentro de la sala
             }
         }
-        return texto;
+        return texto; // Devolvemos el texto que queremos que aparezca por pantalla
     }
 
     /**
@@ -273,22 +272,28 @@ public class SalaRecreativa {
      */
     public String listarMaquinas (){
         String texto = "--- MÁQUINAS --- \n";
-        if(this.capacidadMaquinas == 0){
+        if(this.capacidadMaquinas == 0){ // Si la capacidad de máquinas es igual a 0, imprimimos esto por pantalla el siguiente texto
             texto += "No hay máquinas en la sala";
         } else {
             for(int i = 0; i < this.capacidadMaquinas; i++){ // Recorre el array hasta la capacidad actual
-                texto += this.maquinas[i] + "\n";
+                texto += this.maquinas[i] + "\n"; // Imprimimos por pantalla las máquinas de la sala
             }
         }
-        return texto;
+        return texto; // Devolvemos el texto que queremos que aparezca por pantalla
     }
 
+    /**
+     * ToString que utilizo para cuando quiero listar las máquinas y jugadores de la sala
+     * @return Devolvemos los datos de listarJugadores y listarMaquina, se imprime unos de los dos, dependiendo de lo que quieras imprimir
+     */
     public String toString() {
         return listarJugadores() +
                 "\n" + listarMaquinas();
     }
 
-
+    /**
+     * Constructor con los valores ya establecidos
+     */
     public SalaRecreativa (){
         this.jugadores = new Jugador[size];
         this.maquinas = new MaquinaArcade[size];

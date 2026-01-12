@@ -408,7 +408,18 @@ public class Vista {
             return;
         }
 
-        String genero = Utils.pideCadena("Introduce el genero de la máquina: ", "Error, debes introducir un genero").trim();
+        System.out.println("Géneros disponibles: ");
+        System.out.println("1. Disparos");
+        System.out.println("2. Puzle");
+        System.out.println("3. Plataformas");
+        System.out.println("4. Luchas");
+        System.out.println("5. Juego de salón");
+        System.out.println("6. Galaxias");
+        System.out.println("7. Acción y aventuras");
+        System.out.println("8. Historia");
+        System.out.println("9. Drama");
+        System.out.println("10. Terror");
+        String genero = Utils.pideCadena("Introduce un género de los anteriores para la máquina: ", "Error, debes introducir un género de los anteriores").trim();
         if(!Utils.cadenaValida(genero)){
             System.out.println("Este género no es válido, solo puedes poner letras");
             return;

@@ -2,23 +2,23 @@ package model;
 import utils.Utils;
 public class MaquinaArcade {
     final int size = 3;
-    private String nombreMaquina;
-    private String generoMaquina;
-    private int precioPorPartida;
-    private boolean estadoMaquina;
-    private int contadorPartidasJugadas;
-    private final int [] mejoresPuntuaciones;
-    private final Jugador [] mejoresJugadores;
+    private String nombreMaquina; // Nombre de la máquina
+    private String generoMaquina; // Género de la máquina
+    private int precioPorPartida; // Precio por partida que va a tener cada máquina
+    private boolean estadoMaquina; // Estado de la máquina (activa o desactiva)
+    private int contadorPartidasJugadas; // Contador de partidas jugadas de cada máquina
+    private final int [] mejoresPuntuaciones; // Array con las mejores puntuaciones
+    private final Jugador [] mejoresJugadores; // Array con los jugadores que han hecho las mejores puntuaciones
 
     /**
      * Método para poder activa o desactivar la máquina
      * @param opcion Es el número con el que activa o desactiva una máquina
      */
     public void cambiarEstado (int opcion){
-        if (opcion == 0) {
-            this.estadoMaquina = false;
-        } else if (opcion == 1){
-            this.estadoMaquina = true;
+        if (opcion == 0) { // Si la opción introducida es igual a 0
+            this.estadoMaquina = false; // Devolvemos que la máquina está en false, por lo tanto, está desactivada
+        } else if (opcion == 1){ // Si la opción introducida es igual a 1
+            this.estadoMaquina = true; // Devolvemos que la máquina está true, por lo tanto, está activada
         }
     }
 
@@ -27,15 +27,15 @@ public class MaquinaArcade {
      * @return Devuelve la puntuación obtenida de la partida
      */
     public int nuevaPartida (Jugador jugador){
-        int puntuacion = Utils.generaNumeroAleatorio(0, 9999);
-        this.contadorPartidasJugadas++;
+        int puntuacion = Utils.generaNumeroAleatorio(0, 9999); // Generamos una puntuación aleatoria entre el 0 y el 9999
+        this.contadorPartidasJugadas++; // Incrementamos el contador de las partidas jugadas de la máquina
 
-        if(this.contadorPartidasJugadas % 100 == 0){
-            this.estadoMaquina = false;
+        if(this.contadorPartidasJugadas % 100 == 0){ // Si el contador de partidas de una máquina llega a las cien partidas
+            this.estadoMaquina = false; // Cambiamos el estado de la máquina a False, por lo tanto, está desactiva
         }
 
-        rankingMaquina(puntuacion, jugador);
-        return puntuacion;
+        actualizarRankingMaquina(puntuacion, jugador); // Llamamos a actualizarRankingMaquina y le añadimos la puntuación obtenida en la partida y el jugador que la ha logrado
+        return puntuacion; // Devolvemos la puntuación obtenida en la partida
     }
 
     /**
@@ -43,11 +43,11 @@ public class MaquinaArcade {
      * @param puntuacion La puntuación obtenida al jugar un a partida
      * @param jugador Jugador que obtiene la puntuación de la partida
      */
-    public void rankingMaquina(int puntuacion, Jugador jugador) {
+    public void actualizarRankingMaquina(int puntuacion, Jugador jugador) {
         boolean insertado = false;
         for (int i = 0; i < this.mejoresPuntuaciones.length; i++) { // Recorremos el array de mejores puntuaciones
             if (!insertado && puntuacion > this.mejoresPuntuaciones[i]) { // Si es True y puntuación es mayor que alguna de las tres que ya están dentro del array pasa al siguiente paso
-                for (int j = this.mejoresPuntuaciones.length - 1; j > i; j--) {
+                for (int j = this.mejoresPuntuaciones.length - 1; j > i; j--) { //
                     this.mejoresPuntuaciones[j] = this.mejoresPuntuaciones[j - 1]; // Desplaza las puntuaciones una para abajo
                     this.mejoresJugadores[j] = this.mejoresJugadores[j - 1]; // Desplaza los jugadores una para abajo
                 }
