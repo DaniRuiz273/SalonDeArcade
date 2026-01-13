@@ -17,7 +17,7 @@ public class SalaRecreativa {
                 return true; // Devolvemos true si el nombre ya existe en la sala
             }
         }
-        return false; // False si el nombre no está en la sala
+        return false; // false si el nombre no está en la sala
     }
 
     /**
