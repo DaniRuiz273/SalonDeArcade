@@ -108,31 +108,6 @@ public class Vista {
         } while (opciones != 0);
     }
 
-    public static String generosDisponibles (){
-        return """
-                Géneros disponibles: \
-                
-                 1. Disparos\
-                
-                 2. Puzle\
-                
-                 3. Plataformas\
-                
-                 4. Luchas\
-                
-                 5. Juegos de salón\
-                
-                 6. Galaxias\
-                
-                 7. Acción y aventuras\
-                
-                 8. Historia\
-                
-                 9. Drama\
-                
-                 10. Terror""";
-    }
-
     /**
      * Método con el que imprimimos por pantalla el jugador más activo de la sala
      * @param sala Lugar donde se encuentran los jugadores
@@ -433,12 +408,42 @@ public class Vista {
             return;
         }
 
-        System.out.println(generosDisponibles());
-        String genero = Utils.pideCadena("Introduce un genero de los anteriores para la máquina: ", "Error, debes de introducir un genero de los anteriores");
-        if(!Utils.cadenaValida(genero)){
-            System.out.println("Este género no es válido, solo puedes poner letras");
-            return;
-        }
+        System.out.println("--- GÉNEROS DISPONIBLES ---");
+        System.out.println("1. Acción");
+        System.out.println("2. Aventura");
+        System.out.println("3. Galaxias");
+        System.out.println("4. Puzle");
+        System.out.println("5. Juegos de salon");
+        int opcion;
+        String genero = "";
+        do{
+            opcion = Utils.pideEnteroEntreValores("Introduce el genero que va a tener la máquina (1-5): ", "Error, debe de introducir un entero (1-5)", 1, 5);
+            switch (opcion){
+                case 1:
+                    genero = "Acción";
+                    break;
+
+                case 2:
+                    genero = "Aventura";
+                    break;
+
+                case 3:
+                    genero = "Galaxias";
+                    break;
+
+                case 4:
+                    genero = "Puzle";
+                    break;
+
+                case 5:
+                    genero = "Juegos de salon";
+                    break;
+
+                default:
+                    System.out.println("No has introducido ninguna de las opciones anteriores, pruebe de nuevo");
+                    break;
+            }
+        }while (opcion < 1 || opcion > 5);
 
         int precioPorPartida = Utils.pideEntero("Introduce los créditos que va a costar jugar una partida: ", "Error, debes de introducir un entero.");
         if(precioPorPartida <= 0 || (precioPorPartida % 10 != 0 && precioPorPartida % 10 != 5)){
